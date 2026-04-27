@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Excavation Estimate | Grading & Excavation Cost Calculator</title>
+<meta name="description" content="Get an instant excavation estimate for grading, land clearing, foundation digging, drainage, and site prep. See what licensed excavation contractors charge.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does excavation cost?","acceptedAnswer":{"@type":"Answer","text":"Excavation costs typically range from $1,500 to $15,000 for residential projects. Land clearing runs $1,500 to $6,000 per acre. Grading costs $500 to $5,000 depending on area and slope. Foundation excavation runs $5,000 to $15,000. Final cost depends on soil type, access, depth, and debris disposal."}},{"@type":"Question","name":"How much does land grading cost?","acceptedAnswer":{"@type":"Answer","text":"Land grading typically costs $500 to $5,000 for residential projects. Simple yard grading for drainage runs $500 to $2,000. Grading for new construction or major slope correction costs $2,000 to $8,000. Price depends on square footage, slope severity, and soil conditions."}},{"@type":"Question","name":"How much does foundation excavation cost?","acceptedAnswer":{"@type":"Answer","text":"Foundation excavation typically costs $5,000 to $15,000 for a standard home. Cost depends on foundation size, depth required by local frost line, soil conditions, and debris disposal. Rocky or unstable soil increases cost significantly."}},{"@type":"Question","name":"How long does excavation take?","acceptedAnswer":{"@type":"Answer","text":"Simple grading takes 1 to 3 days. Land clearing takes 1 to 5 days per acre. Foundation excavation takes 3 to 7 days. Full site preparation for new construction takes 1 to 3 weeks depending on site conditions and project scope."}},{"@type":"Question","name":"Do I need permits for excavation work?","acceptedAnswer":{"@type":"Answer","text":"Many excavation projects require permits, especially for foundation work, grading near property lines, drainage alterations, and projects near waterways or wetlands. A licensed excavation contractor will identify permit requirements and handle the application process as part of the project."}}]}</script>
+<style>
+:root{--brand-primary:#111010;--brand-accent:#c8450a;--brand-primary-dark:#000000;--brand-accent-light:#fdf0ea;--white:#fff;--off-white:#f5f1ea;--gray-100:#f1f3f5;--gray-200:#e9ecef;--gray-400:#ced4da;--gray-600:#6c757d;--text:#1a2332;--radius:8px;--shadow:0 4px 24px rgba(0,0,0,.10);--transition:.18s ease}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Barlow',system-ui,sans-serif;background:var(--off-white);color:var(--text);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+.page-header{background:var(--brand-primary);padding:20px 24px;text-align:center}
+.contractor-name{font-size:13px;font-weight:600;color:rgba(255,255,255,.65);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.page-header h1{font-size:clamp(20px,4vw,28px);font-weight:700;color:#fff;line-height:1.2}
+.page-header p{font-size:14px;color:rgba(255,255,255,.6);margin-top:6px}
+.trust-bar{background:var(--brand-accent);padding:10px 24px;display:flex;justify-content:center;gap:24px;flex-wrap:wrap}
+.trust-item{font-size:12px;font-weight:600;color:#fff;display:flex;align-items:center;gap:6px}
+.container{max-width:640px;margin:0 auto;padding:24px 16px 48px}
+.form-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.progress-bar{height:4px;background:var(--gray-200)}
+.progress-fill{height:100%;background:var(--brand-accent);transition:width .4s ease}
+.step-indicator{padding:16px 24px 0;display:flex;align-items:center;justify-content:space-between}
+.step-label{font-size:12px;font-weight:600;color:var(--brand-accent);letter-spacing:.1em;text-transform:uppercase}
+.step-count{font-size:12px;color:var(--gray-600)}
+.form-step{display:none;padding:20px 24px 24px}
+.form-step.active{display:block}
+.step-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.3}
+.step-subtitle{font-size:14px;color:var(--gray-600);margin-bottom:24px;line-height:1.5}
+.option-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.option-grid.single-col{grid-template-columns:1fr}
+.option-grid.three-col{grid-template-columns:1fr 1fr 1fr}
+.option-btn{border:2px solid var(--gray-200);background:#fff;border-radius:var(--radius);padding:14px 12px;cursor:pointer;text-align:center;transition:all var(--transition);display:flex;flex-direction:column;align-items:center;gap:6px}
+.option-btn:hover,.option-btn.selected{border-color:var(--brand-accent);background:var(--brand-accent-light)}
+.option-btn.selected{box-shadow:0 0 0 3px rgba(224,123,42,.15)}
+.option-icon{font-size:24px}
+.option-label{font-size:13px;font-weight:600;color:var(--text);line-height:1.3}
+.option-sub{font-size:11px;color:var(--gray-600);line-height:1.3}
+.input-group{margin-bottom:16px}
+.input-label{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px}
+.req{color:var(--brand-accent);margin-left:2px}
+.form-input{width:100%;padding:12px 14px;border:2px solid var(--gray-200);border-radius:var(--radius);font-size:15px;color:var(--text);background:#fff;transition:border-color var(--transition);outline:none}
+.form-input:focus{border-color:var(--brand-accent)}
+.btn-next{width:100%;padding:16px;background:var(--brand-primary);color:#fff;border:none;border-radius:var(--radius);font-size:16px;font-weight:700;cursor:pointer;margin-top:8px}
+.btn-next:hover{background:var(--brand-primary-dark)}
+.btn-back{width:100%;padding:12px;background:transparent;color:var(--gray-600);border:none;font-size:14px;cursor:pointer;margin-top:8px;text-decoration:underline}
+.estimate-result{display:none;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:16px}
+.estimate-result.show{display:block}
+.result-header{background:var(--brand-primary);padding:24px;text-align:center}
+.result-label{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:600;margin-bottom:8px}
+.result-range{font-size:clamp(32px,8vw,48px);font-weight:800;color:#fff;line-height:1;margin-bottom:8px}
+.result-accent{color:var(--brand-accent)}
+.result-note{font-size:13px;color:rgba(255,255,255,.55);line-height:1.5}
+.breakdown{padding:20px 24px;border-bottom:1px solid var(--gray-100)}
+.breakdown-title{font-size:13px;font-weight:700;color:var(--gray-600);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.breakdown-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--gray-100);font-size:14px}
+.breakdown-row:last-child{border-bottom:none}
+.bk{color:var(--gray-600)}
+.bv{font-weight:600;color:var(--text)}
+.booking{padding:20px 24px 24px}
+.booking-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:6px}
+.booking-sub{font-size:14px;color:var(--gray-600);margin-bottom:20px;line-height:1.5}
+.btn-book{display:block;width:100%;padding:18px;background:var(--brand-accent);color:#fff;border:none;border-radius:var(--radius);font-size:17px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;margin-bottom:12px}
+.btn-call{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:#fff;color:var(--brand-primary);border:2px solid var(--brand-primary);border-radius:var(--radius);font-size:15px;font-weight:700;text-decoration:none}
+.disclaimer{font-size:11px;color:var(--gray-600);text-align:center;margin-top:16px;line-height:1.6;padding:12px;background:var(--gray-100);border-radius:var(--radius)}
+.faq-section{margin-top:32px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.faq-header{background:var(--brand-primary);padding:16px 24px}
+.faq-header h2{font-size:16px;font-weight:700;color:#fff}
+.faq-item{border-bottom:1px solid var(--gray-100);cursor:pointer}
+.faq-item:last-child{border-bottom:none}
+.faq-q{padding:16px 20px;font-size:14px;font-weight:600;color:var(--text);display:flex;justify-content:space-between;align-items:flex-start;gap:12px;line-height:1.4}
+.faq-toggle{font-size:18px;color:var(--brand-accent);flex-shrink:0}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;font-size:14px;color:var(--gray-600);line-height:1.7;padding:0 20px}
+.faq-item.open .faq-a{max-height:220px;padding:0 20px 16px}
+.form-footer{text-align:center;padding:20px 0 0;font-size:11px;color:var(--gray-600)}
+@media(max-width:480px){.option-grid{grid-template-columns:1fr 1fr}.option-grid.three-col{grid-template-columns:1fr 1fr}}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="page-header">
+  <div class="contractor-name">Hillier Construction LLC</div>
+  <h1>Free Excavation Estimate</h1>
+  <p>Instant cost range for grading, clearing, and site work — no obligation</p>
+</div>
+<div class="trust-bar">
+  <div class="trust-item">✓ Licensed & Insured</div>
+  <div class="trust-item">✓ CCB# 219946</div>
+  <div class="trust-item">✓ CCB# 219946</div>
+</div>
+<div class="container">
+  <div class="form-card" id="formCard">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:33%"></div></div>
+    <!-- STEP 1 -->
+    <div class="form-step active" id="step1">
+      <div class="step-indicator"><span class="step-label">Step 1 of 3</span><span class="step-count">Project Type</span></div>
+      <div style="padding:20px 0 0">
+        <div class="step-title">What type of excavation work do you need?</div>
+        <div class="step-subtitle">Select the option that best describes your project.</div>
+        <div class="option-grid single-col" id="projectGrid">
+          <button class="option-btn" onclick="sel(this,'project','grading')"><span class="option-icon">🏔️</span><span class="option-label">Yard Grading & Leveling</span><span class="option-sub">Slope correction, drainage, lawn prep</span></button>
+          <button class="option-btn" onclick="sel(this,'project','clearing')"><span class="option-icon">🌲</span><span class="option-label">Land Clearing</span><span class="option-sub">Remove trees, brush, stumps</span></button>
+          <button class="option-btn" onclick="sel(this,'project','foundation')"><span class="option-icon">🏗️</span><span class="option-label">Foundation Excavation</span><span class="option-sub">Dig for new home or addition</span></button>
+          <button class="option-btn" onclick="sel(this,'project','drainage')"><span class="option-icon">💧</span><span class="option-label">Drainage & French Drain</span><span class="option-sub">Solve water or flooding problems</span></button>
+          <button class="option-btn" onclick="sel(this,'project','demo')"><span class="option-icon">💥</span><span class="option-label">Demolition & Removal</span><span class="option-sub">Remove structure, concrete, debris</span></button>
+          <button class="option-btn" onclick="sel(this,'project','other')"><span class="option-icon">🚜</span><span class="option-label">Other Site Work</span><span class="option-sub">Driveway, septic, utilities, more</span></button>
+        </div>
+        <button class="btn-next" id="step1Next" onclick="goToStep(2)" disabled>Continue →</button>
+      </div>
+    </div>
+    <!-- STEP 2 -->
+    <div class="form-step" id="step2">
+      <div class="step-indicator"><span class="step-label">Step 2 of 3</span><span class="step-count">Site Details</span></div>
+      <div style="padding:20px 0 0">
+        <div class="step-title">Tell us about the site</div>
+        <div class="step-subtitle">These details help us give you a more accurate estimate range.</div>
+        <div class="step-title" style="font-size:16px;margin-bottom:6px">Approximate project area?</div>
+        <div class="option-grid" id="sizeGrid" style="margin-bottom:20px">
+          <button class="option-btn" onclick="sel(this,'size','small')"><span class="option-icon">📐</span><span class="option-label">Small</span><span class="option-sub">Under 2,000 sq ft</span></button>
+          <button class="option-btn" onclick="sel(this,'size','medium')"><span class="option-icon">📏</span><span class="option-label">Medium</span><span class="option-sub">2,000 – 10,000 sq ft</span></button>
+          <button class="option-btn" onclick="sel(this,'size','large')"><span class="option-icon">🗺️</span><span class="option-label">Large</span><span class="option-sub">10,000 sq ft – 1 acre</span></button>
+          <button class="option-btn" onclick="sel(this,'size','acreage')"><span class="option-icon">🌾</span><span class="option-label">Multi-Acre</span><span class="option-sub">Over 1 acre</span></button>
+        </div>
+        <div class="step-title" style="font-size:16px;margin-bottom:6px">Soil and site conditions?</div>
+        <div class="option-grid three-col" id="soilGrid" style="margin-bottom:20px">
+          <button class="option-btn" onclick="sel(this,'soil','easy')"><span class="option-label">Sandy / Soft</span><span class="option-sub">Easy digging</span></button>
+          <button class="option-btn" onclick="sel(this,'soil','clay')"><span class="option-label">Clay / Dense</span><span class="option-sub">Typical Oregon soil</span></button>
+          <button class="option-btn" onclick="sel(this,'soil','rock')"><span class="option-label">Rocky</span><span class="option-sub">Rock removal needed</span></button>
+        </div>
+        <button class="btn-next" onclick="goToStep(3)">Continue →</button>
+        <button class="btn-back" onclick="goToStep(1)">← Back</button>
+      </div>
+    </div>
+    <!-- STEP 3 -->
+    <div class="form-step" id="step3">
+      <div class="step-indicator"><span class="step-label">Step 3 of 3</span><span class="step-count">Your Info</span></div>
+      <div style="padding:20px 0 0">
+        <div class="step-title">Where should we send your estimate?</div>
+        <div class="step-subtitle">We'll visit the site and give you a detailed written quote — most site visits happen within 48 hours.</div>
+        <div class="input-group"><label class="input-label">Your Name <span class="req">*</span></label><input type="text" class="form-input" id="contactName" placeholder="First and last name"></div>
+        <div class="input-group"><label class="input-label">Phone Number <span class="req">*</span></label><input type="tel" class="form-input" id="contactPhone" placeholder="(503) 555-0100"></div>
+        <div class="input-group"><label class="input-label">Property Address <span class="req">*</span></label><input type="text" class="form-input" id="contactAddress" placeholder="Street address or parcel location"></div>
+        <button class="btn-next" onclick="submitForm()">Get My Free Estimate →</button>
+        <button class="btn-back" onclick="goToStep(2)">← Back</button>
+      </div>
+    </div>
+  </div>
+  <div class="estimate-result" id="estimateResult">
+    <div class="result-header">
+      <div class="result-label">Your Estimated Investment</div>
+      <div class="result-range">$<span class="result-accent" id="resultLow">0</span> – $<span id="resultHigh">0</span></div>
+      <div class="result-note">Site-specific estimate · Final quote after site visit</div>
+    </div>
+    <div class="breakdown">
+      <div class="breakdown-title">Estimate Breakdown</div>
+      <div class="breakdown-row"><span class="bk">Project Type</span><span class="bv" id="bdProject">—</span></div>
+      <div class="breakdown-row"><span class="bk">Project Size</span><span class="bv" id="bdSize">—</span></div>
+      <div class="breakdown-row"><span class="bk">Soil Conditions</span><span class="bv" id="bdSoil">—</span></div>
+      <div class="breakdown-row"><span class="bk">Equipment & Labor</span><span class="bv">Included</span></div>
+      <div class="breakdown-row"><span class="bk">Debris Disposal</span><span class="bv">Discussed at site visit</span></div>
+    </div>
+    <div class="booking">
+      <div class="booking-title">Ready for a site visit?</div>
+      <div class="booking-sub">Excavation pricing depends heavily on site conditions. We'll visit your property, assess access, soil, and scope — then give you an exact written quote within 24 hours.</div>
+      <a href="tel:(503) 854-5921" class="btn-book">📅 Schedule Free Site Visit</a>
+      <a href="tel:(503) 854-5921" class="btn-call">📞 Call Now: (503) 854-5921</a>
+      <div class="disclaimer">Excavation estimates vary significantly based on site conditions, access, rock content, and disposal requirements. This range is a planning guide. Exact pricing requires a site visit. Written quote provided before any work begins. No obligation to proceed.</div>
+    </div>
+  </div>
+  <div class="faq-section">
+    <div class="faq-header"><h2>Common Questions About Excavation Costs</h2></div>
+    <div class="faq-item" onclick="tf(this)"><div class="faq-q">How much does excavation cost per hour?<span class="faq-toggle">+</span></div><div class="faq-a">Excavation contractors typically charge $80 to $150 per hour for equipment and operator. Most jobs are quoted as a flat rate for the project rather than hourly. A site visit is required to give accurate flat-rate pricing because soil conditions and access vary significantly.</div></div>
+    <div class="faq-item" onclick="tf(this)"><div class="faq-q">How much does yard grading cost?<span class="faq-toggle">+</span></div><div class="faq-a">Yard grading typically costs $500 to $5,000 for residential projects. Simple drainage grading for a small yard runs $500 to $1,500. Grading a full lot for new construction or major slope correction runs $2,000 to $8,000+. Rocky or hard-to-access sites cost more.</div></div>
+    <div class="faq-item" onclick="tf(this)"><div class="faq-q">What affects excavation cost the most?<span class="faq-toggle">+</span></div><div class="faq-a">The biggest cost factors are project size, soil type (rock costs 2 to 3 times more than soft soil), site access for equipment, depth required, and debris disposal. Rocky soil or limited equipment access can significantly increase costs compared to soft, open sites.</div></div>
+    <div class="faq-item" onclick="tf(this)"><div class="faq-q">Do I need a permit for excavation work?<span class="faq-toggle">+</span></div><div class="faq-a">Many excavation projects require permits, especially for foundation work, grading near property lines, drainage alterations, and projects near waterways. A licensed contractor identifies all permit requirements and handles the application. Never start excavation work without checking permit requirements first.</div></div>
+    <div class="faq-item" onclick="tf(this)"><div class="faq-q">How do I know if my property has underground utilities?<span class="faq-toggle">+</span></div><div class="faq-a">Always call 811 (Oregon's dig safe line) before any excavation. This free service marks underground utility lines within 2 business days. Hitting a buried utility line is extremely dangerous and expensive. A licensed excavation contractor always calls 811 before breaking ground.</div></div>
+  </div>
+  <div class="form-footer">Powered by TradeLine Digital · Performance Digital for Contractors</div>
+</div>
+<script>
+const state={project:null,size:null,soil:null};
+const projLabels={grading:'Yard Grading & Leveling',clearing:'Land Clearing',foundation:'Foundation Excavation',drainage:'Drainage & French Drain',demo:'Demolition & Removal',other:'Site Work'};
+const projBase={
+  grading:{small:{low:600,high:2000},medium:{low:2000,high:5500},large:{low:5500,high:12000},acreage:{low:8000,high:25000}},
+  clearing:{small:{low:1200,high:3500},medium:{low:3500,high:8000},large:{low:8000,high:18000},acreage:{low:15000,high:40000}},
+  foundation:{small:{low:5000,high:10000},medium:{low:8000,high:16000},large:{low:14000,high:28000},acreage:{low:20000,high:50000}},
+  drainage:{small:{low:1500,high:4000},medium:{low:3500,high:8000},large:{low:6000,high:15000},acreage:{low:10000,high:25000}},
+  demo:{small:{low:1200,high:4000},medium:{low:3500,high:9000},large:{low:7000,high:18000},acreage:{low:12000,high:35000}},
+  other:{small:{low:1500,high:5000},medium:{low:4000,high:12000},large:{low:8000,high:22000},acreage:{low:15000,high:40000}}
+};
+const sizeLabels={small:'Small (under 2,000 sq ft)',medium:'Medium (2,000–10,000 sq ft)',large:'Large (10,000 sq ft – 1 acre)',acreage:'Multi-Acre'};
+const soilLabels={easy:'Sandy / Soft Soil',clay:'Clay / Dense Soil',rock:'Rocky (complexity factor applied)'};
+function sel(btn,key,val){
+  btn.parentElement.querySelectorAll('.option-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');state[key]=val;
+  if(key==='project')document.getElementById('step1Next').disabled=false;
+}
+function goToStep(n){
+  document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('step'+n).classList.add('active');
+  document.getElementById('progressFill').style.width=(n===1?33:n===2?66:100)+'%';
+  window.scrollTo(0,0);
+}
+function submitForm(){
+  const name=document.getElementById('contactName').value.trim();
+  const phone=document.getElementById('contactPhone').value.trim();
+  const addr=document.getElementById('contactAddress').value.trim();
+  if(!name||!phone||!addr){alert('Please fill in all fields.');return;}
+  const proj=projBase[state.project]||projBase.other;
+  const size=state.size||'medium';
+  const r=proj[size]||proj.medium;
+  const soilMult=state.soil==='rock'?1.45:state.soil==='clay'?1.15:1.0;
+  const low=Math.round(r.low*1.12*soilMult/100)*100;
+  const high=Math.round(r.high*1.12*soilMult/100)*100;
+  document.getElementById('resultLow').textContent=low.toLocaleString();
+  document.getElementById('resultHigh').textContent=high.toLocaleString();
+  document.getElementById('bdProject').textContent=projLabels[state.project]||'Excavation Work';
+  document.getElementById('bdSize').textContent=sizeLabels[size]||'Medium';
+  document.getElementById('bdSoil').textContent=soilLabels[state.soil]||'To be assessed at site visit';
+  document.getElementById('formCard').style.display='none';
+  document.getElementById('estimateResult').classList.add('show');
+  window.scrollTo(0,0);
+}
+function tf(item){const o=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));if(!o)item.classList.add('open');}
+</script>
+</body>
+</html>
