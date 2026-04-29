@@ -86,7 +86,7 @@ body{font-family:'Barlow',system-ui,sans-serif;background:var(--off-white);color
 <div class="trust-bar">
   <div class="trust-item">✓ Licensed & Insured</div>
   <div class="trust-item">✓ CCB# 219946</div>
-  <div class="trust-item">✓ CCB# 219946</div>
+  <div class="trust-item">✓ Free Site Visit</div>
 </div>
 <div class="container">
   <div class="form-card" id="formCard">
@@ -137,10 +137,17 @@ body{font-family:'Barlow',system-ui,sans-serif;background:var(--off-white);color
       <div style="padding:20px 0 0">
         <div class="step-title">Where should we send your estimate?</div>
         <div class="step-subtitle">We'll visit the site and give you a detailed written quote — most site visits happen within 48 hours.</div>
-        <div class="input-group"><label class="input-label">Your Name <span class="req">*</span></label><input type="text" class="form-input" id="contactName" placeholder="First and last name"></div>
-        <div class="input-group"><label class="input-label">Phone Number <span class="req">*</span></label><input type="tel" class="form-input" id="contactPhone" placeholder="(503) 555-0100"></div>
-        <div class="input-group"><label class="input-label">Property Address <span class="req">*</span></label><input type="text" class="form-input" id="contactAddress" placeholder="Street address or parcel location"></div>
-        <button class="btn-next" onclick="submitForm()">Get My Free Estimate →</button>
+        <form id="estimatorForm" action="https://formspree.io/f/xaqagqqp" method="POST">
+          <input type="hidden" name="trade" value="Excavation"/>
+          <input type="hidden" name="project_type" id="hiddenProject"/>
+          <input type="hidden" name="project_size" id="hiddenSize"/>
+          <input type="hidden" name="soil_conditions" id="hiddenSoil"/>
+          <input type="hidden" name="estimate_range" id="hiddenRange"/>
+          <div class="input-group"><label class="input-label">Your Name <span class="req">*</span></label><input type="text" name="name" class="form-input" id="contactName" placeholder="First and last name" required></div>
+          <div class="input-group"><label class="input-label">Phone Number <span class="req">*</span></label><input type="tel" name="phone" class="form-input" id="contactPhone" placeholder="(503) 555-0100" required></div>
+          <div class="input-group"><label class="input-label">Property Address <span class="req">*</span></label><input type="text" name="address" class="form-input" id="contactAddress" placeholder="Street address or parcel location" required></div>
+          <button type="submit" class="btn-next" onclick="populateHidden()">Get My Free Estimate →</button>
+        </form>
         <button class="btn-back" onclick="goToStep(2)">← Back</button>
       </div>
     </div>
@@ -160,10 +167,9 @@ body{font-family:'Barlow',system-ui,sans-serif;background:var(--off-white);color
       <div class="breakdown-row"><span class="bk">Debris Disposal</span><span class="bv">Discussed at site visit</span></div>
     </div>
     <div class="booking">
-      <div class="booking-title">Ready for a site visit?</div>
-      <div class="booking-sub">Excavation pricing depends heavily on site conditions. We'll visit your property, assess access, soil, and scope — then give you an exact written quote within 24 hours.</div>
-      <a href="tel:(503) 854-5921" class="btn-book">📅 Schedule Free Site Visit</a>
-      <a href="tel:(503) 854-5921" class="btn-call">📞 Call Now: (503) 854-5921</a>
+      <div class="booking-title">We'll be in touch soon!</div>
+      <div class="booking-sub">Byron will follow up within 1 business day to schedule your free site visit and confirm the estimate range.</div>
+      <a href="tel:5038545921" class="btn-book">📞 Call Now: (503) 854-5921</a>
       <div class="disclaimer">Excavation estimates vary significantly based on site conditions, access, rock content, and disposal requirements. This range is a planning guide. Exact pricing requires a site visit. Written quote provided before any work begins. No obligation to proceed.</div>
     </div>
   </div>
@@ -201,25 +207,26 @@ function goToStep(n){
   document.getElementById('progressFill').style.width=(n===1?33:n===2?66:100)+'%';
   window.scrollTo(0,0);
 }
-function submitForm(){
-  const name=document.getElementById('contactName').value.trim();
-  const phone=document.getElementById('contactPhone').value.trim();
-  const addr=document.getElementById('contactAddress').value.trim();
-  if(!name||!phone||!addr){alert('Please fill in all fields.');return;}
+function calcEstimate(){
   const proj=projBase[state.project]||projBase.other;
   const size=state.size||'medium';
   const r=proj[size]||proj.medium;
   const soilMult=state.soil==='rock'?1.45:state.soil==='clay'?1.15:1.0;
   const low=Math.round(r.low*1.12*soilMult/100)*100;
   const high=Math.round(r.high*1.12*soilMult/100)*100;
+  return {low,high};
+}
+function populateHidden(){
+  const {low,high}=calcEstimate();
+  document.getElementById('hiddenProject').value=projLabels[state.project]||'Excavation Work';
+  document.getElementById('hiddenSize').value=sizeLabels[state.size]||'Medium';
+  document.getElementById('hiddenSoil').value=soilLabels[state.soil]||'Standard';
+  document.getElementById('hiddenRange').value='$'+low.toLocaleString()+' – $'+high.toLocaleString();
   document.getElementById('resultLow').textContent=low.toLocaleString();
   document.getElementById('resultHigh').textContent=high.toLocaleString();
   document.getElementById('bdProject').textContent=projLabels[state.project]||'Excavation Work';
-  document.getElementById('bdSize').textContent=sizeLabels[size]||'Medium';
-  document.getElementById('bdSoil').textContent=soilLabels[state.soil]||'To be assessed at site visit';
-  document.getElementById('formCard').style.display='none';
-  document.getElementById('estimateResult').classList.add('show');
-  window.scrollTo(0,0);
+  document.getElementById('bdSize').textContent=sizeLabels[state.size]||'Medium';
+  document.getElementById('bdSoil').textContent=soilLabels[state.soil]||'Standard';
 }
 function tf(item){const o=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));if(!o)item.classList.add('open');}
 </script>
