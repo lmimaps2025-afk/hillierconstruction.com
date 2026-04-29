@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free Remodeling Estimate | General Contractor Cost Calculator</title>
 <meta name="description" content="Get an instant remodeling estimate for kitchen, bathroom, addition, or whole-home projects. See what licensed general contractors charge before you call.">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does a home remodel cost?","acceptedAnswer":{"@type":"Answer","text":"Home remodel costs vary widely by project type. Kitchen remodels run $15,000 to $75,000. Bathroom remodels cost $8,000 to $35,000. Room additions typically cost $25,000 to $100,000+. Whole-home remodels range from $50,000 to $200,000+. A licensed general contractor can provide an accurate written quote after reviewing your project."}},{"@type":"Question","name":"How much does a kitchen remodel cost?","acceptedAnswer":{"@type":"Answer","text":"Kitchen remodels typically cost $15,000 to $75,000 depending on scope. A minor refresh with new cabinet faces, countertops, and fixtures runs $15,000 to $30,000. A full gut remodel with new layout, appliances, and custom cabinets runs $40,000 to $75,000+. Mid-range projects average $25,000 to $45,000."}},{"@type":"Question","name":"How long does a home remodel take?","acceptedAnswer":{"@type":"Answer","text":"Bathroom remodels typically take 2 to 4 weeks. Kitchen remodels take 4 to 8 weeks. Room additions take 2 to 4 months. Whole-home remodels take 4 to 12 months depending on scope. Timeline depends on permit approval, material lead times, and project complexity."}},{"@type":"Question","name":"Do I need permits for a home remodel?","acceptedAnswer":{"@type":"Answer","text":"Most structural, electrical, plumbing, and mechanical work requires permits. Kitchen and bathroom remodels involving plumbing or electrical changes require permits. Room additions always require permits. A licensed general contractor pulls all required permits as part of the project — never hire a contractor who suggests skipping permits."}},{"@type":"Question","name":"How do I choose a good general contractor?","acceptedAnswer":{"@type":"Answer","text":"Choose a general contractor who is licensed and insured in your state, has verifiable local references, provides a detailed written contract, pulls all required permits, and has been in business at least 3 years. Ask to see their contractor license number and verify it with your state licensing board."}}]}</script>
 <style>
 :root{--brand-primary:#111010;--brand-accent:#c8450a;--brand-primary-dark:#000000;--brand-accent-light:#fdf0ea;--white:#fff;--off-white:#f5f1ea;--gray-100:#f1f3f5;--gray-200:#e9ecef;--gray-400:#ced4da;--gray-600:#6c757d;--text:#1a2332;--radius:8px;--shadow:0 4px 24px rgba(0,0,0,.10);--transition:.18s ease}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -135,10 +134,17 @@ body{font-family:'Barlow',system-ui,sans-serif;background:var(--off-white);color
       <div style="padding:20px 0 0">
         <div class="step-title">Where should we send your estimate?</div>
         <div class="step-subtitle">We'll schedule a free walk-through to see the space and give you a detailed written quote.</div>
-        <div class="input-group"><label class="input-label">Your Name <span class="req">*</span></label><input type="text" class="form-input" id="contactName" placeholder="First and last name"></div>
-        <div class="input-group"><label class="input-label">Phone Number <span class="req">*</span></label><input type="tel" class="form-input" id="contactPhone" placeholder="(503) 555-0100"></div>
-        <div class="input-group"><label class="input-label">Property Address <span class="req">*</span></label><input type="text" class="form-input" id="contactAddress" placeholder="Street address"></div>
-        <button class="btn-next" onclick="submitForm()">Get My Free Estimate →</button>
+        <form id="estimatorForm" action="https://formspree.io/f/xaqagqqp" method="POST">
+          <input type="hidden" name="trade" value="General Contractor / Remodeling"/>
+          <input type="hidden" name="project_type" id="hiddenProject"/>
+          <input type="hidden" name="finish_level" id="hiddenFinish"/>
+          <input type="hidden" name="structural_work" id="hiddenStruct"/>
+          <input type="hidden" name="estimate_range" id="hiddenRange"/>
+          <div class="input-group"><label class="input-label">Your Name <span class="req">*</span></label><input type="text" name="name" class="form-input" id="contactName" placeholder="First and last name" required></div>
+          <div class="input-group"><label class="input-label">Phone Number <span class="req">*</span></label><input type="tel" name="phone" class="form-input" id="contactPhone" placeholder="(503) 555-0100" required></div>
+          <div class="input-group"><label class="input-label">Property Address <span class="req">*</span></label><input type="text" name="address" class="form-input" id="contactAddress" placeholder="Street address" required></div>
+          <button type="submit" class="btn-next" onclick="populateHidden()">Get My Free Estimate →</button>
+        </form>
         <button class="btn-back" onclick="goToStep(2)">← Back</button>
       </div>
     </div>
@@ -158,20 +164,18 @@ body{font-family:'Barlow',system-ui,sans-serif;background:var(--off-white);color
       <div class="breakdown-row"><span class="bk">Permits</span><span class="bv">Included where required</span></div>
     </div>
     <div class="booking">
-      <div class="booking-title">Ready to see your space?</div>
-      <div class="booking-sub">Every remodel is different. We'll walk through your project, understand your vision, and give you a detailed written quote — usually within 48 hours of the visit.</div>
-      <a href="tel:(503) 854-5921" class="btn-book">📅 Schedule Free Walk-Through</a>
-      <a href="tel:(503) 854-5921" class="btn-call">📞 Call Now: (503) 854-5921</a>
+      <div class="booking-title">We'll be in touch soon!</div>
+      <div class="booking-sub">Byron will follow up within 1 business day to schedule your free walk-through and confirm the estimate range.</div>
+      <a href="tel:5038545921" class="btn-book">📞 Call Now: (503) 854-5921</a>
       <div class="disclaimer">Remodeling estimates are budget ranges based on typical project costs. Final price depends on site conditions, material selections, structural findings, and permit requirements. Detailed written quote provided before any work begins. No obligation to proceed.</div>
     </div>
   </div>
   <div class="faq-section">
     <div class="faq-header"><h2>Common Questions About Remodeling Costs</h2></div>
-    <div class="faq-item" onclick="tf(this)"><div class="faq-q">How much does a kitchen remodel cost in 2026?<span class="faq-toggle">+</span></div><div class="faq-a">Kitchen remodels range from $15,000 to $75,000+ depending on scope and finish level. A minor refresh with new cabinet faces and countertops runs $15,000 to $28,000. A full gut remodel with new layout and custom cabinets runs $40,000 to $75,000+. Most homeowners spend $25,000 to $45,000 for a quality mid-range kitchen remodel.</div></div>
-    <div class="faq-item" onclick="tf(this)"><div class="faq-q">How much does a bathroom remodel cost?<span class="faq-toggle">+</span></div><div class="faq-a">Bathroom remodels typically cost $8,000 to $35,000. A basic refresh runs $8,000 to $15,000. A full master bath remodel with tile shower, double vanity, and soaking tub runs $20,000 to $40,000. The national average is around $12,000 to $18,000 for a standard bathroom.</div></div>
-    <div class="faq-item" onclick="tf(this)"><div class="faq-q">Do I need permits for a remodel?<span class="faq-toggle">+</span></div><div class="faq-a">Most remodeling work involving structural changes, plumbing, or electrical requires permits. A licensed general contractor pulls all required permits as part of the project. Never hire a contractor who suggests skipping permits — unpermitted work creates insurance, safety, and resale problems.</div></div>
-    <div class="faq-item" onclick="tf(this)"><div class="faq-q">How long does a remodel take?<span class="faq-toggle">+</span></div><div class="faq-a">Bathroom remodels take 2 to 4 weeks. Kitchen remodels take 4 to 8 weeks. Room additions take 2 to 4 months. Timeline depends on permit approval, material lead times, and project complexity. A good contractor provides a written schedule before work begins.</div></div>
-    <div class="faq-item" onclick="tf(this)"><div class="faq-q">What should be in a remodeling contract?<span class="faq-toggle">+</span></div><div class="faq-a">A solid remodeling contract includes: detailed scope of work, material specifications, payment schedule tied to milestones (never pay in full upfront), start and completion dates, permit responsibility, change order process, and warranty terms. Never sign a vague contract that leaves scope undefined.</div></div>
+    <div class="faq-item" onclick="tf(this)"><div class="faq-q">How much does a kitchen remodel cost in 2026?<span class="faq-toggle">+</span></div><div class="faq-a">Kitchen remodels range from $15,000 to $75,000+ depending on scope and finish level. A minor refresh with new cabinet faces and countertops runs $15,000 to $28,000. A full gut remodel with new layout and custom cabinets runs $40,000 to $75,000+.</div></div>
+    <div class="faq-item" onclick="tf(this)"><div class="faq-q">How much does a bathroom remodel cost?<span class="faq-toggle">+</span></div><div class="faq-a">Bathroom remodels typically cost $8,000 to $35,000. A basic refresh runs $8,000 to $15,000. A full master bath remodel with tile shower, double vanity, and soaking tub runs $20,000 to $40,000.</div></div>
+    <div class="faq-item" onclick="tf(this)"><div class="faq-q">Do I need permits for a remodel?<span class="faq-toggle">+</span></div><div class="faq-a">Most remodeling work involving structural changes, plumbing, or electrical requires permits. A licensed general contractor pulls all required permits as part of the project. Never hire a contractor who suggests skipping permits.</div></div>
+    <div class="faq-item" onclick="tf(this)"><div class="faq-q">How long does a remodel take?<span class="faq-toggle">+</span></div><div class="faq-a">Bathroom remodels take 2 to 4 weeks. Kitchen remodels take 4 to 8 weeks. Room additions take 2 to 4 months. Timeline depends on permit approval, material lead times, and project complexity.</div></div>
   </div>
   <div class="form-footer">Powered by TradeLine Digital · Performance Digital for Contractors</div>
 </div>
@@ -198,25 +202,22 @@ function goToStep(n){
   document.getElementById('progressFill').style.width=(n===1?33:n===2?66:100)+'%';
   window.scrollTo(0,0);
 }
-function submitForm(){
-  const name=document.getElementById('contactName').value.trim();
-  const phone=document.getElementById('contactPhone').value.trim();
-  const addr=document.getElementById('contactAddress').value.trim();
-  if(!name||!phone||!addr){alert('Please fill in all fields.');return;}
+function populateHidden(){
   const proj=projBase[state.project]||projBase.other;
   const finish=state.finish||'mid';
   const r=proj[finish]||proj.mid;
   const structMult=state.structural==='yes'?1.22:1.0;
   const low=Math.round(r.low*1.12*structMult/500)*500;
   const high=Math.round(r.high*1.12*structMult/500)*500;
+  document.getElementById('hiddenProject').value=projLabels[state.project]||'Remodeling Project';
+  document.getElementById('hiddenFinish').value=finishLabels[finish]||'Mid-Range';
+  document.getElementById('hiddenStruct').value=state.structural==='yes'?'Yes':state.structural==='no'?'No':'Unsure';
+  document.getElementById('hiddenRange').value='$'+low.toLocaleString()+' – $'+high.toLocaleString();
   document.getElementById('resultLow').textContent=low.toLocaleString();
   document.getElementById('resultHigh').textContent=high.toLocaleString();
   document.getElementById('bdProject').textContent=projLabels[state.project]||'Remodeling Project';
   document.getElementById('bdFinish').textContent=finishLabels[finish]||'Mid-Range';
   document.getElementById('bdStruct').textContent=state.structural==='yes'?'Yes — structural work included':state.structural==='no'?'No structural changes':'To be assessed at walk-through';
-  document.getElementById('formCard').style.display='none';
-  document.getElementById('estimateResult').classList.add('show');
-  window.scrollTo(0,0);
 }
 function tf(item){const o=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));if(!o)item.classList.add('open');}
 </script>
