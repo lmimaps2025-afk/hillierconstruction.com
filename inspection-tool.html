@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Hillier Home Watch — Inspection Tool</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<style>
+/* ===== INSPECTION TOOL — uses styles.css design system ===== */
+.tool-screen { display: none; min-height: 100vh; }
+.tool-screen.active { display: block; }
+
+/* START SCREEN */
+.start-screen {
+  background: var(--black);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 20px 56px;
+}
+.start-logo-img {
+  height: 80px;
+  width: auto;
+  margin-bottom: 12px;
+  filter: brightness(0) invert(1);
+}
+.start-logo-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 0.04em;
+  text-align: center;
+  margin-bottom: 4px;
+}
+.start-logo-text span { color: var(--orange); }
+.start-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 32px;
+}
+.start-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  width: 100%;
+  max-width: 460px;
+  margin-bottom: 20px;
+}
+.start-card h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 8px;
+  letter-spacing: 0.01em;
+}
+.start-card h1 span { color: var(--orange); }
+.start-intro {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  font-weight: 300;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.sc-section-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: block;
+}
+.tool-fg { margin-bottom: 16px; }
+.tool-fl {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 8px;
+}
+.tool-fl-opt {
+  font-weight: 400;
+  color: rgba(255,255,255,0.3);
+  text-transform: none;
+  letter-spacing: 0.04em;
+  font-size: 11px;
+  margin-left: 6px;
+}
+.tool-fi {
+  width: 100%;
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  font-family: 'Barlow', sans-serif;
+  font-size: 15px;
+  color: white;
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+}
+.tool-fi::placeholder { color: rgba(255,255,255,0.25); }
+.tool-fi:focus { border-color: var(--orange); }
+.tool-frow { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 480px) { .tool-frow { grid-template-columns: 1fr; } }
+.tool-fhint {
+  font-size: 11px;
+  color: rgba(255,255,255,0.25);
+  margin-top: 6px;
+  font-weight: 300;
+}
+
+/* TOOL KIT CHECKLIST ON START SCREEN */
+.toolkit-card {
+  background: rgba(232,100,10,0.06);
+  border: 1px solid rgba(232,100,10,0.3);
+  border-radius: var(--radius-lg);
+  padding: 24px 24px 18px;
+  width: 100%;
+  max-width: 460px;
+  margin-bottom: 20px;
+}
+.toolkit-card h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+}
+.toolkit-card h2 span { color: var(--orange); }
+.toolkit-intro {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+.toolkit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 16px;
+}
+@media (max-width: 480px) { .toolkit-grid { grid-template-columns: 1fr; } }
+.toolkit-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  cursor: pointer;
+  user-select: none;
+}
+.toolkit-box {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  border-radius: 3px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  background: transparent;
+}
+.toolkit-row.checked .toolkit-box {
+  background: var(--orange);
+  border-color: var(--orange);
+}
+.toolkit-mark { font-size: 10px; color: white; display: none; }
+.toolkit-row.checked .toolkit-mark { display: block; }
+.toolkit-row.checked .toolkit-text {
+  text-decoration: line-through;
+  color: rgba(255,255,255,0.4);
+}
+.toolkit-text {
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.3;
+  transition: all 0.15s;
+}
+.toolkit-reset {
+  margin-top: 14px;
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 4px 0;
+}
+.toolkit-reset:hover { color: var(--orange); }
+
+.btn-tool-start {
+  width: 100%;
+  padding: 16px;
+  background: var(--orange);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 8px;
+}
+.btn-tool-start:hover { background: var(--orange-dark); }
+.btn-tool-start:disabled { opacity: 0.3; cursor: not-allowed; }
+.start-legal {
+  font-size: 11px;
+  color: rgba(255,255,255,0.2);
+  text-align: center;
+  line-height: 1.7;
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.04em;
+}
+
+/* CHECK SCREEN */
+.check-hdr {
+  background: var(--black);
+  padding: 0 20px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.check-logo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 0.04em;
+}
+.check-logo span { color: var(--orange); }
+.prog-wrap { display: flex; align-items: center; gap: 10px; }
+.prog-bar {
+  width: 100px;
+  height: 4px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.prog-fill {
+  height: 100%;
+  background: var(--orange);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+.prog-txt {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.06em;
+}
+.check-meta {
+  background: var(--warm-white);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 20px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.mi {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.md {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--orange);
+  flex-shrink: 0;
+}
+.prop-banner {
+  background: var(--black);
+  padding: 12px 20px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.pchip {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.pchip span { color: rgba(232,100,10,0.85); }
+.check-body { padding: 16px 20px 120px; background: var(--off-white); }
+
+/* CATEGORY BLOCKS */
+.cat-block { margin-bottom: 12px; }
+.cat-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--black);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  cursor: pointer;
+  user-select: none;
+}
+.cat-left { display: flex; align-items: center; gap: 12px; }
+.cat-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: 0.16em;
+}
+.cat-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 0.03em;
+}
+.cat-right { display: flex; align-items: center; gap: 12px; }
+.cat-badge {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.08em;
+}
+.cat-arrow {
+  color: rgba(255,255,255,0.4);
+  font-size: 14px;
+  transition: transform 0.2s;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+}
+.item-list {
+  background: white;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-top: none;
+}
+.cat-block.collapsed .item-list { display: none; }
+.cat-block.collapsed .cat-arrow { transform: rotate(-90deg); }
+.cat-block.collapsed .cat-hdr { border-radius: var(--radius-lg); }
+
+/* INSPECTION ITEMS */
+.check-item {
+  border-bottom: 1px solid var(--border);
+  padding: 16px 18px;
+}
+.check-item:last-child { border-bottom: none; }
+.item-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.item-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+  padding-top: 2px;
+  min-width: 24px;
+}
+.item-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  flex: 1;
+  line-height: 1.4;
+}
+.status-row { display: flex; gap: 8px; }
+.sbtn {
+  flex: 1;
+  padding: 10px 4px;
+  border-radius: var(--radius);
+  border: 2px solid transparent;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: var(--stone);
+  color: var(--muted);
+  text-align: center;
+}
+.sbtn.ag { background: #EDF7ED; border-color: #6ABF6A; color: #2D6A2D; }
+.sbtn.ay { background: #FFFBEA; border-color: #F0C040; color: #7A5C00; }
+.sbtn.ar { background: #FDF0F0; border-color: #E05555; color: #8B1A1A; }
+
+/* SUB-PANELS */
+.sub-panel {
+  display: none;
+  margin-top: 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.sub-panel.open { display: block; }
+.sub-hdr {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.sub-hdr.y { background: #FFFBEA; color: #7A5C00; }
+.sub-hdr.r { background: #FDF0F0; color: #8B1A1A; }
+.sub-opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.sub-opt:last-child { border-bottom: none; }
+.sub-opt:hover, .sub-opt.chk { background: var(--off-white); }
+.sub-box {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border);
+  border-radius: 3px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  transition: all 0.15s;
+}
+.sub-opt.chk .sub-box { background: var(--orange); border-color: var(--orange); }
+.sub-mark { font-size: 10px; color: white; display: none; }
+.sub-opt.chk .sub-mark { display: block; }
+.sub-txt { font-size: 13px; color: var(--text); line-height: 1.4; }
+
+/* MATERIAL ROW */
+.mat-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  align-items: center;
+}
+.mat-lbl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.mat-inp {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-family: 'Barlow', sans-serif;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--warm-white);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.mat-inp:focus { border-color: var(--orange); }
+.note-fld {
+  display: none;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-family: 'Barlow', sans-serif;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--warm-white);
+  outline: none;
+  resize: none;
+  min-height: 56px;
+  transition: border-color 0.2s;
+}
+.note-fld:focus { border-color: var(--orange); }
+.note-fld.open { display: block; }
+
+/* FLOAT BAR */
+.float-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 14px 20px;
+  background: var(--black);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  z-index: 100;
+}
+.float-ctr {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+}
+.float-ctr span { color: var(--orange); }
+.btn-complete {
+  flex: 1;
+  padding: 14px;
+  background: var(--orange);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-complete:hover { background: var(--orange-dark); }
+.btn-complete:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* REPORT SCREEN */
+.rpt-toolbar {
+  background: var(--black);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.rtlbl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.rt-btns { display: flex; gap: 8px; }
+.btn-act {
+  padding: 9px 18px;
+  border-radius: var(--radius);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+.btn-print { background: var(--orange); color: white; }
+.btn-print:hover { background: var(--orange-dark); }
+.btn-new {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.btn-new:hover { background: rgba(255,255,255,0.14); }
+.rpt-pg {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 20px 56px;
+}
+
+/* CLIENT EMAIL CONFIRM ON REPORT */
+.email-confirm {
+  background: var(--warm-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.email-confirm-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.email-confirm-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 9px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: white;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.email-confirm-input:focus { border-color: var(--orange); }
+
+/* REPORT HEADER */
+.rpt-hdr {
+  background: var(--black);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  margin-bottom: 14px;
+}
+.rpt-hdr-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.rpt-co {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+.rpt-co span { color: var(--orange); }
+.rpt-ccb {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.spills { display: flex; gap: 8px; }
+.spill {
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  text-align: center;
+  min-width: 60px;
+}
+.spill .sn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1;
+  display: block;
+}
+.spill .sl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 2px;
+}
+.spill-g { background: rgba(45,106,45,0.4); }
+.spill-g .sn, .spill-g .sl { color: #6ABF6A; }
+.spill-y { background: rgba(122,92,0,0.35); }
+.spill-y .sn, .spill-y .sl { color: #F0C040; }
+.spill-r { background: rgba(139,26,26,0.4); }
+.spill-r .sn, .spill-r .sl { color: #E05555; }
+.rpt-hdr-bot { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 600px) { .rpt-hdr-bot { grid-template-columns: 1fr; } }
+.rpt-kicker {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 6px;
+}
+.rpt-addr { font-size: 18px; font-weight: 600; color: white; line-height: 1.2; }
+.rpt-meta { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+.prof-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 8px;
+}
+.pchip2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.06em;
+  display: flex;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.pchip2-k { color: rgba(255,255,255,0.25); min-width: 60px; }
+
+/* REPORT SUMMARY */
+.sum-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.sum-card {
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  text-align: center;
+}
+.sum-card.g { background: #EDF7ED; border: 1.5px solid #6ABF6A; }
+.sum-card.y { background: #FFFBEA; border: 1.5px solid #F0C040; }
+.sum-card.r { background: #FDF0F0; border: 1.5px solid #E05555; }
+.sum-n {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1;
+  display: block;
+  margin-bottom: 2px;
+}
+.sum-card.g .sum-n { color: #2D6A2D; }
+.sum-card.y .sum-n { color: #7A5C00; }
+.sum-card.r .sum-n { color: #8B1A1A; }
+.sum-lbl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+.sum-card.g .sum-lbl { color: #2D6A2D; }
+.sum-card.y .sum-lbl { color: #7A5C00; }
+.sum-card.r .sum-lbl { color: #8B1A1A; }
+.sum-sub { font-size: 11px; color: var(--muted); font-weight: 300; line-height: 1.4; }
+
+/* TOTAL BAR */
+.total-bar {
+  background: #FDF0F0;
+  border: 1px solid #E05555;
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  margin-bottom: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.total-bar-left .tbl-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: #8B1A1A;
+  letter-spacing: 0.06em;
+}
+.total-bar-left .tbl-sub { font-size: 11px; color: var(--muted); font-weight: 300; margin-top: 3px; }
+.total-bar-amt {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #8B1A1A;
+}
+
+/* REPORT CATEGORIES */
+.rcat { margin-bottom: 12px; }
+.rcat-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--warm-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+.rcat-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--black);
+  letter-spacing: 0.04em;
+}
+.rcat-pills { display: flex; gap: 4px; }
+.rpill {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+.rpill.g { background: #EDF7ED; color: #2D6A2D; border: 1px solid #6ABF6A; }
+.rpill.y { background: #FFFBEA; color: #7A5C00; border: 1px solid #F0C040; }
+.rpill.r { background: #FDF0F0; color: #8B1A1A; border: 1px solid #E05555; }
+.rcat-items {
+  background: white;
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  overflow: hidden;
+}
+.ritem {
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.ritem:last-child { border-bottom: none; }
+.ribadge {
+  padding: 4px 0;
+  border-radius: 3px;
+  text-align: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+.ribadge.g { background: #EDF7ED; color: #2D6A2D; border: 1px solid #6ABF6A; }
+.ribadge.y { background: #FFFBEA; color: #7A5C00; border: 1px solid #F0C040; }
+.ribadge.r { background: #FDF0F0; color: #8B1A1A; border: 1px solid #E05555; }
+.ritem-name { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
+.ritem-subs { font-size: 11px; color: var(--muted); font-weight: 300; line-height: 1.5; }
+.ritem-note { font-size: 11px; color: var(--muted); font-style: italic; margin-top: 3px; }
+.ritem-mats { font-size: 11px; color: var(--orange); font-weight: 500; margin-top: 3px; }
+.ritem-price {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  text-align: right;
+  white-space: nowrap;
+}
+.ritem-price.gp { color: #2D6A2D; }
+.ritem-plbl {
+  font-size: 10px;
+  color: var(--muted);
+  font-weight: 300;
+  text-align: right;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+/* REPORT FOOTER */
+.rpt-footer {
+  background: var(--black);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.rf-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+.rf-sub { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 300; }
+.rf-right {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.06em;
+  text-align: right;
+  line-height: 1.9;
+}
+
+/* PRINT */
+@media print {
+  .rpt-toolbar, .float-bar, .email-confirm { display: none !important; }
+  .start-screen, .check-hdr, .check-meta, .prop-banner, .check-body { display: none !important; }
+  body { background: white; }
+  .rpt-pg { padding: 12px; max-width: 100%; }
+  .rpt-hdr, .rpt-footer { background: #111 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .sum-card, .ribadge, .rpill, .spill, .total-bar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== START SCREEN ===== -->
+<div id="screen-start" class="tool-screen active">
+  <div class="start-screen">
+    <img src="images/LogoHillier.png" alt="Hillier Construction" class="start-logo-img">
+    <div class="start-logo-text">HILLIER <span>HOME WATCH</span></div>
+    <div class="start-sub">25-Point Inspection Tool</div>
+
+    <!-- TOOL KIT CHECKLIST -->
+    <div class="toolkit-card">
+      <h2>Truck <span>Check</span></h2>
+      <p class="toolkit-intro">Tap each item as you confirm it's loaded. Don't drive over without it.</p>
+      <div class="toolkit-grid" id="toolkitGrid"></div>
+      <button class="toolkit-reset" onclick="resetToolkit()">Reset checklist</button>
+    </div>
+
+    <!-- VISIT INFO + PROFILE -->
+    <div class="start-card">
+      <h1>Start <span>Inspection</span></h1>
+      <p class="start-intro">Fill in visit info and property profile before beginning. Profile details carry through to the report and help the tech prepare materials for next time.</p>
+
+      <span class="sc-section-label">Visit Info</span>
+      <div class="tool-fg"><label class="tool-fl">Tech / Inspector Name</label><input type="text" class="tool-fi" id="fTech" placeholder="Your name" oninput="chkStart()"></div>
+      <div class="tool-fg"><label class="tool-fl">Property Address</label><input type="text" class="tool-fi" id="fAddr" placeholder="123 Main St, Salem OR" oninput="chkStart()"></div>
+      <div class="tool-fg"><label class="tool-fl">Client Name <span class="tool-fl-opt">(optional)</span></label><input type="text" class="tool-fi" id="fClient" placeholder="Homeowner name"></div>
+      <div class="tool-fg"><label class="tool-fl">Client Email <span class="tool-fl-opt">(optional)</span></label><input type="email" class="tool-fi" id="fEmail" placeholder="email@example.com"><div class="tool-fhint">For sending the report afterward. Confirmed again before sending.</div></div>
+
+      <span class="sc-section-label" style="margin-top: 24px;">Property Profile — Bring These Next Time</span>
+      <div class="tool-frow">
+        <div class="tool-fg"><label class="tool-fl">Furnace Filter Size</label><input type="text" class="tool-fi" id="fFilter" placeholder='16x25x1"'></div>
+        <div class="tool-fg"><label class="tool-fl">Year Built</label><input type="text" class="tool-fi" id="fBuilt" placeholder="e.g. 1987"></div>
+      </div>
+      <div class="tool-frow">
+        <div class="tool-fg"><label class="tool-fl">Interior Paint</label><input type="text" class="tool-fi" id="fPaint" placeholder="e.g. SW Alabaster"></div>
+        <div class="tool-fg"><label class="tool-fl">Caulk Color</label><input type="text" class="tool-fi" id="fCaulk" placeholder="e.g. White / Tan"></div>
+      </div>
+      <div class="tool-fg"><label class="tool-fl">Property Notes</label><input type="text" class="tool-fi" id="fNotes" placeholder="Gate code, pets, pre-existing issues..."><div class="tool-fhint">Visible during inspection</div></div>
+
+      <button class="btn-tool-start" id="btnStart" onclick="startInsp()" disabled>Begin Walk-Through &rarr;</button>
+    </div>
+
+    <div class="start-legal">Hillier Construction LLC &middot; CCB# 219946 &middot; Internal use only</div>
+  </div>
+</div>
+
+<!-- ===== CHECK SCREEN ===== -->
+<div id="screen-check" class="tool-screen">
+  <div class="check-hdr">
+    <div class="check-logo">HILLIER <span>HOME WATCH</span></div>
+    <div class="prog-wrap"><div class="prog-bar"><div class="prog-fill" id="progFill" style="width: 0%"></div></div><div class="prog-txt" id="progTxt">0/25</div></div>
+  </div>
+  <div class="check-meta">
+    <span class="mi"><span class="md"></span><span id="mAddr">—</span></span>
+    <span class="mi"><span class="md"></span><span id="mDate">—</span></span>
+    <span class="mi"><span class="md"></span><span id="mTech">—</span></span>
+  </div>
+  <div class="prop-banner" id="propBanner"></div>
+  <div class="check-body" id="checkBody"></div>
+  <div class="float-bar">
+    <div class="float-ctr"><span id="doneCount">0</span>/25 Checked</div>
+    <button class="btn-complete" id="btnComplete" onclick="genReport()" disabled>Generate Report &rarr;</button>
+  </div>
+</div>
+
+<!-- ===== REPORT SCREEN ===== -->
+<div id="screen-report" class="tool-screen">
+  <div class="rpt-toolbar">
+    <div class="rtlbl">Inspection Report</div>
+    <div class="rt-btns">
+      <button class="btn-act btn-new" onclick="newInsp()">New Inspection</button>
+      <button class="btn-act btn-print" onclick="window.print()">Print / Save PDF</button>
+    </div>
+  </div>
+  <div class="rpt-pg" id="rptPg"></div>
+</div>
+
+<script>
+const PRICES = {
+  e1:[180,360,600,1800],e2:[120,240,240,600],e3:[240,600,600,2400],e4:[180,480,480,2400],e5:[96,180,180,480],
+  s1:[18,36,60,120],s2:[18,36,60,120],s3:[36,72,120,240],s4:[36,72,120,240],s5:[120,240,240,480],
+  p1:[96,180,240,720],p2:[120,240,960,2400],p3:[60,120,240,600],p4:[60,120,180,480],p5:[120,240,360,840],
+  m1:[30,60,60,120],m2:[120,240,600,2400],m3:[120,360,480,2400],m4:[60,120,600,2400],m5:[60,120,240,720],
+  i1:[60,180,240,720],i2:[60,120,180,480],i3:[60,120,120,360],i4:[36,72,120,360],i5:[120,360,480,2400]
+};
+const PLBLS = {
+  e1:'Roof repair / moss treatment',e2:'Gutter cleaning / repair',e3:'Grading / drainage correction',
+  e4:'Siding / paint repair',e5:'Exterior caulking & sealing',s1:'Smoke detector service / replace',
+  s2:'CO detector service / replace',s3:'GFCI outlet replacement',s4:'Fire extinguisher service',
+  s5:'Dryer vent cleaning',p1:'Plumbing repair (under sink)',p2:'Water heater service or replace',
+  p3:'Toilet repair',p4:'Hose bib repair',p5:'Pressure / PRV service',m1:'Filter replacement',
+  m2:'Furnace / HVAC service',m3:'Crawl space / attic remediation',m4:'Panel evaluation by electrician',
+  m5:'Garage door service',i1:'Door / window repair or replace',i2:'Tub & shower recaulk',
+  i3:'Weather stripping replacement',i4:'Electrical fixture repair',i5:'Interior repairs'
+};
+const MATS = { filter: 'Filter size', caulk: 'Caulk color', paint: 'Paint color / sheen' };
+const TOOLS = ['Multi-bit screwdriver','Cordless drill/driver','Adjustable wrench','Channel-lock pliers','Utility knife','Tape measure','6 ft & 10 ft step ladder','Headlamp / flashlight','Moisture meter','GFCI outlet tester','Non-contact voltage tester','Phone camera','Caulk gun','Silicone & latex caulk','WD-40 & silicone spray','Furnace filters (common sizes)','9V & AA batteries','Smoke detector units','GFCI outlets (15A & 20A)','Outlet covers / switch plates'];
+
+const CL = [
+  {id:'exterior',name:'Exterior',num:'01',items:[
+    {id:'e1',name:'Roof — visible condition from ground',mon:['Moss or lichen growth present','Granule loss on shingles','Minor lifted or curling shingles','Flashing around chimney looks worn','Gutters pulling from fascia','Debris in roof valleys'],act:['Missing shingles — open to weather','Visible hole, rot, or structural damage','Significant sagging ridge line','Active leak evidence (staining on eaves)','Flashing separated or missing','Tree limbs in contact with roof'],mat:null},
+    {id:'e2',name:'Gutters & Downspouts',mon:['Debris buildup — needs cleaning','Minor sag from fascia','Downspout within 3 ft of foundation','Splash blocks missing or displaced','Seams showing rust or staining'],act:['Gutters completely clogged','Significant pull-away from fascia','Downspout disconnected or missing','Water ponding against foundation','Gutter section crushed'],mat:null},
+    {id:'e3',name:'Grading & Drainage around Foundation',mon:['Flat grade — not yet positive slope away','Mulch built up against siding','Low spots holding water near house'],act:['Negative slope — drains toward foundation','Standing water within 3 ft of foundation','Soil erosion exposing foundation','Water intrusion in basement or crawl space'],mat:null},
+    {id:'e4',name:'Siding, Trim & Paint',mon:['Paint peeling — not yet structural','Minor caulking shrinkage at trim','Single board showing early soft spot','Algae or mildew on shaded faces (common PNW)'],act:['Soft or rotted siding or trim','Open gap — water and pest entry','Paint failure exposing raw wood','Fiber cement cracking or delaminating','T1-11 edges swelling or separating'],mat:'paint'},
+    {id:'e5',name:'Caulking & Seals — Windows, Doors, Penetrations',mon:['Hairline cracks in window caulk','Caulk pulling from surface','Minor gap at material transitions'],act:['Open gap around window — water entry','Caulk missing at critical joint','Water staining below exterior window','Seal missing at utility penetration'],mat:'caulk'}
+  ]},
+  {id:'safety',name:'Safety & Fire',num:'02',items:[
+    {id:'s1',name:'Smoke Detectors',mon:['Battery chirping or low','Unit 8-10 years old','Not tested in 6+ months'],act:['Missing from bedroom or hallway — not code compliant','Unit failed self-test','Over 10 years old — must replace','Interconnected system not working'],mat:null},
+    {id:'s2',name:'Carbon Monoxide Detectors',mon:['Battery low','Unit 5-7 years old','Only one unit with multiple gas appliances'],act:['No CO detector — Oregon law requires with fossil fuel appliances','Unit failed self-test','Over 7 years old','Not near sleeping areas'],mat:null},
+    {id:'s3',name:'GFCI Outlets — Kitchen, Bathrooms, Garage, Exterior',mon:['Trips frequently — possible wiring issue','Reset button stiff','Cover missing or cracked'],act:['Failed test — will not trip','Non-GFCI within 6 ft of water — code violation','Exterior outlet missing weatherproof cover','Garage outlet not GFCI protected'],mat:null},
+    {id:'s4',name:'Fire Extinguisher',mon:['Pressure gauge slightly low','Bracket loose or not accessible','No extinguisher in garage'],act:['No fire extinguisher in home','Extinguisher expired','Pin pulled or seal broken','Unit corroded or damaged'],mat:null},
+    {id:'s5',name:'Dryer Vent',mon:['Dryer slower than normal — possible restriction','Foil flex instead of rigid metal','Last cleaned 12+ months ago'],act:['Vent completely clogged — fire hazard','Terminates inside wall or attic — code violation','Vent disconnected behind dryer','Plastic flex duct — must replace'],mat:null}
+  ]},
+  {id:'plumbing',name:'Plumbing',num:'03',items:[
+    {id:'p1',name:'Under-Sink Inspection — Kitchen & Bathrooms',mon:['Minor staining on cabinet floor — past leak, dry now','P-trap fittings slightly loose','Shutoff valve stiff — hard to close in emergency'],act:['Active drip or leak at supply or drain','Braided hose over 8 years or showing bulge','Drain pipe disconnected','Mold or rot on cabinet floor'],mat:null},
+    {id:'p2',name:'Water Heater',mon:['Unit 8-12 years old','Minor sediment rumbling','Anode rod not serviced 3+ years','TPR valve not tested recently'],act:['Rust, corrosion, or weeping at tank base','Over 12 years old with no service','TPR valve dripping or corroded shut','No drip pan or pan drain not connected','Gas connector damaged or kinked'],mat:null},
+    {id:'p3',name:'Toilets',mon:['Slight run — flapper needs replacement','Minor rocking at base','Handle sticks or needs multiple flushes'],act:['Active leak at base — wax ring failed','Visible crack in tank or bowl','Constant run — water into bowl continuously','Water staining or soft flooring at base'],mat:null},
+    {id:'p4',name:'Exterior Hose Bibs',mon:['Slow drip when closed','Not frost-free — freeze risk in Oregon winter','Handle hard to turn'],act:['Active steady leak','Pipe connection inside wall cracked','Bib damaged or broken off'],mat:null},
+    {id:'p5',name:'Water Pressure & General Observation',mon:['Pressure feels slightly high (normal 40-80 PSI)','PRV over 7 years old'],act:['Very high pressure (80+ PSI) — damages fixtures','Very low pressure — shutoff or PRV failing','Water hammer in walls when faucets turned off'],mat:null}
+  ]},
+  {id:'mechanical',name:'Mechanical & HVAC',num:'04',items:[
+    {id:'m1',name:'HVAC Filter',mon:['Filter dirty — change at this visit','Minimum 1" flat — recommend upgrade to 4" media'],act:['Filter completely blocked — running without filtration','No filter installed','Filter collapsed into blower'],mat:'filter'},
+    {id:'m2',name:'Furnace & Air Handler — Visual',mon:['Minor rust on cabinet','Unusual noise — humming, rattling, squealing','Over 15 years old','Flue pipe minor separation','Condensation on air handler in crawl space'],act:['Yellow or flickering burner flame (should be blue)','Error code on control board','Flue pipe disconnected — CO risk','Scorched or overheating components','Drain pan full — condensate not draining'],mat:null},
+    {id:'m3',name:'Crawl Space or Attic — Access & Visual',mon:['Minor condensation on vapor barrier','Insulation gaps or compression','Small tears in crawl space vapor barrier','Old rodent evidence (no active signs)'],act:['Active standing water in crawl space','Mold growth on joists or subfloor','Active rodent evidence — droppings, nesting, chewed wiring','Vapor barrier missing from crawl space floor','Insulation fallen from floor joists','Missing attic vent screens — pest entry'],mat:null},
+    {id:'m4',name:'Electrical Panel — Visual Only',mon:['Breaker labels missing or illegible','One or two breakers tripped','Federal Pacific or Zinsco — recommend evaluation','Panel appears over 30 years old'],act:['Burning smell — immediate concern','Corrosion, melted components, or discoloration','Double-tapped breakers (two wires in one terminal)','No breaker spaces remaining','Breaker will not reset'],mat:null},
+    {id:'m5',name:'Garage Door — Safety & Function',mon:['Minor squeaking — lubrication needed','Bottom weather stripping worn','Wall button slow to respond','Keypad battery low'],act:['Does not reverse on obstruction test — sensor failure','Sensors misaligned or blocked','Spring broken','Cable fraying or off drum','Track significantly bent'],mat:null}
+  ]},
+  {id:'interior',name:'Interior',num:'05',items:[
+    {id:'i1',name:'Doors & Windows',mon:['Door sticks seasonally (common PNW humidity)','Window crank stiff','Failed double-pane seal — fog between glass','Minor air infiltration at exterior door'],act:['Exterior door not latching or locking','Window broken or cracked','Significant air gap — weatherstripping failed','Bedroom window unable to open — egress concern'],mat:null},
+    {id:'i2',name:'Caulking — Tubs, Showers, Sinks',mon:['Caulk pulling from tile or tub edge','Minor surface mold — can be cleaned','Grout in shower corners (should be caulk)'],act:['Open gap between tub and tile — water entering wall','Soft wall or ceiling near shower','Caulk missing at tub perimeter','Black mold behind loose tile or at wall seams'],mat:'caulk'},
+    {id:'i3',name:'Weather Stripping — Exterior Doors',mon:['Compression seal flattened on high-use door','Door sweep leaving minor gap','Side seals wearing but still making contact'],act:['Daylight visible around door frame','Door sweep missing or torn','Significant draft — energy and moisture loss'],mat:null},
+    {id:'i4',name:'Lights & Switches',mon:['Bulb out — replace during visit','Switch plate missing or cracked','Dimmer running warm','Recessed light flickering'],act:['Switch cover warm or hot — wiring concern','Scorch marks at outlet or switch','Burning smell at switch or outlet','Fixture loose at ceiling junction box'],mat:null},
+    {id:'i5',name:'General Interior Walk — Observations',mon:['Hairline cracks at door corners — normal settling','Minor ceiling staining — appears old and dry','Cabinet hardware loose','Carpet wear at high-traffic areas'],act:['Active or fresh water staining on ceiling or walls','Soft or spongy subfloor','Significant drywall crack — diagonal or with offset','Visible mold on walls or ceiling','Strong musty odor — possible moisture issue'],mat:null}
+  ]}
+];
+
+const insp = { tech:'', addr:'', client:'', email:'', date:'', profile:{}, results:{} };
+
+function fmt(d) { return d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}); }
+
+function show(id) {
+  document.querySelectorAll('.tool-screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function buildToolkit() {
+  const grid = document.getElementById('toolkitGrid');
+  grid.innerHTML = TOOLS.map((t, i) => `<div class="toolkit-row" id="tk-${i}" onclick="togToolkit(${i})"><div class="toolkit-box"><span class="toolkit-mark">&#10003;</span></div><span class="toolkit-text">${t}</span></div>`).join('');
+}
+
+function togToolkit(i) {
+  document.getElementById('tk-' + i).classList.toggle('checked');
+}
+
+function resetToolkit() {
+  document.querySelectorAll('.toolkit-row').forEach(r => r.classList.remove('checked'));
+}
+
+function chkStart() {
+  const t = document.getElementById('fTech').value.trim();
+  const a = document.getElementById('fAddr').value.trim();
+  document.getElementById('btnStart').disabled = !(t && a);
+}
+
+function startInsp() {
+  insp.tech = document.getElementById('fTech').value.trim();
+  insp.addr = document.getElementById('fAddr').value.trim();
+  insp.client = document.getElementById('fClient').value.trim();
+  insp.email = document.getElementById('fEmail').value.trim();
+  insp.date = fmt(new Date());
+  insp.profile = {
+    filter: document.getElementById('fFilter').value.trim(),
+    built: document.getElementById('fBuilt').value.trim(),
+    paint: document.getElementById('fPaint').value.trim(),
+    caulk: document.getElementById('fCaulk').value.trim(),
+    notes: document.getElementById('fNotes').value.trim()
+  };
+  insp.results = {};
+  document.getElementById('mAddr').textContent = insp.addr;
+  document.getElementById('mDate').textContent = insp.date;
+  document.getElementById('mTech').textContent = insp.tech;
+  const pb = document.getElementById('propBanner');
+  const p = insp.profile;
+  const chips = [];
+  if (p.filter) chips.push(`FILTER: <span>${p.filter}</span>`);
+  if (p.caulk) chips.push(`CAULK: <span>${p.caulk}</span>`);
+  if (p.paint) chips.push(`PAINT: <span>${p.paint}</span>`);
+  if (p.built) chips.push(`BUILT: <span>${p.built}</span>`);
+  if (p.notes) chips.push(`NOTE: <span>${p.notes}</span>`);
+  pb.innerHTML = chips.map(c => `<span class="pchip">${c}</span>`).join('');
+  pb.style.display = chips.length ? 'flex' : 'none';
+  buildCL();
+  show('screen-check');
+}
+
+function buildCL() {
+  const body = document.getElementById('checkBody');
+  body.innerHTML = '';
+  let gi = 0;
+  CL.forEach(cat => {
+    const blk = document.createElement('div');
+    blk.className = 'cat-block';
+    blk.id = 'cat-' + cat.id;
+    let iHTML = '';
+    cat.items.forEach(item => {
+      gi++;
+      const mf = item.mat ? `<div class="mat-row" id="matrow-${item.id}" style="display:none"><span class="mat-lbl">${MATS[item.mat]}:</span><input type="text" class="mat-inp" id="mat-${item.id}" placeholder="Enter ${MATS[item.mat].toLowerCase()}..." onchange="saveMat('${item.id}',this.value)"></div>` : '';
+      const ms = item.mon.map((m,i) => `<div class="sub-opt" id="so-${item.id}-m-${i}" onclick="togSub('${item.id}','m',${i})"><div class="sub-box"><span class="sub-mark">&#10003;</span></div><span class="sub-txt">${m}</span></div>`).join('');
+      const as = item.act.map((a,i) => `<div class="sub-opt" id="so-${item.id}-r-${i}" onclick="togSub('${item.id}','r',${i})"><div class="sub-box"><span class="sub-mark">&#10003;</span></div><span class="sub-txt">${a}</span></div>`).join('');
+      iHTML += `<div class="check-item" id="ci-${item.id}"><div class="item-top"><span class="item-num">${String(gi).padStart(2,'0')}</span><span class="item-name">${item.name}</span></div><div class="status-row"><button class="sbtn" onclick="setSt('${item.id}','green',this)">Good</button><button class="sbtn" onclick="setSt('${item.id}','yellow',this)">Monitor</button><button class="sbtn" onclick="setSt('${item.id}','red',this)">Action</button></div><div class="sub-panel" id="sp-${item.id}-y"><div class="sub-hdr y">Monitor — select all that apply</div>${ms}</div><div class="sub-panel" id="sp-${item.id}-r"><div class="sub-hdr r">Action Needed — select all that apply</div>${as}</div>${mf}<textarea class="note-fld" id="nf-${item.id}" placeholder="Additional notes (optional)..." rows="2" oninput="saveNote('${item.id}',this.value)"></textarea></div>`;
+    });
+    blk.innerHTML = `<div class="cat-hdr" onclick="togCat('${cat.id}')"><div class="cat-left"><span class="cat-num">${cat.num}</span><span class="cat-name">${cat.name}</span></div><div class="cat-right"><span class="cat-badge" id="badge-${cat.id}">0/${cat.items.length}</span><span class="cat-arrow">&#9660;</span></div></div><div class="item-list">${iHTML}</div>`;
+    body.appendChild(blk);
+  });
+}
+
+function togCat(id) { document.getElementById('cat-' + id).classList.toggle('collapsed'); }
+
+function setSt(id, st, btn) {
+  if (!insp.results[id]) insp.results[id] = { status:'', subs:[], note:'', mat:'' };
+  insp.results[id].status = st;
+  btn.parentElement.querySelectorAll('.sbtn').forEach(b => b.classList.remove('ag','ay','ar'));
+  btn.classList.add(st === 'green' ? 'ag' : st === 'yellow' ? 'ay' : 'ar');
+  document.getElementById('sp-' + id + '-y').classList.toggle('open', st === 'yellow');
+  document.getElementById('sp-' + id + '-r').classList.toggle('open', st === 'red');
+  insp.results[id].subs = [];
+  document.querySelectorAll(`[id^="so-${id}-"]`).forEach(e => e.classList.remove('chk'));
+  document.getElementById('nf-' + id).classList.toggle('open', st === 'yellow' || st === 'red');
+  const mr = document.getElementById('matrow-' + id);
+  if (mr) mr.style.display = (st === 'yellow' || st === 'red') ? 'flex' : 'none';
+  updProg();
+  updBadge(id);
+}
+
+function togSub(id, type, idx) {
+  if (!insp.results[id]) return;
+  const key = type + '-' + idx;
+  const el = document.getElementById(`so-${id}-${type}-${idx}`);
+  const s = insp.results[id].subs;
+  const p = s.indexOf(key);
+  if (p > -1) { s.splice(p,1); el.classList.remove('chk'); }
+  else { s.push(key); el.classList.add('chk'); }
+}
+
+function saveNote(id, v) { if (insp.results[id]) insp.results[id].note = v; }
+function saveMat(id, v) { if (insp.results[id]) insp.results[id].mat = v; }
+
+function updProg() {
+  const done = Object.values(insp.results).filter(r => r.status !== '').length;
+  document.getElementById('progFill').style.width = Math.round(done / 25 * 100) + '%';
+  document.getElementById('progTxt').textContent = done + '/25';
+  document.getElementById('doneCount').textContent = done;
+  document.getElementById('btnComplete').disabled = done < 25;
+}
+
+function updBadge(id) {
+  const cat = CL.find(c => c.items.some(i => i.id === id));
+  if (!cat) return;
+  const done = cat.items.filter(i => insp.results[i.id] && insp.results[i.id].status !== '').length;
+  document.getElementById('badge-' + cat.id).textContent = done + '/' + cat.items.length;
+}
+
+function genReport() {
+  const cnt = { green:0, yellow:0, red:0 };
+  CL.forEach(cat => cat.items.forEach(i => { const r = insp.results[i.id]; if (r && r.status) cnt[r.status]++; }));
+  let catHTML = '';
+  let totLo = 0, totHi = 0;
+
+  CL.forEach(cat => {
+    const cg = cat.items.filter(i => insp.results[i.id]?.status === 'green').length;
+    const cy = cat.items.filter(i => insp.results[i.id]?.status === 'yellow').length;
+    const cr = cat.items.filter(i => insp.results[i.id]?.status === 'red').length;
+    let pills = '';
+    if (cg) pills += `<span class="rpill g">${cg} Good</span>`;
+    if (cy) pills += `<span class="rpill y">${cy} Monitor</span>`;
+    if (cr) pills += `<span class="rpill r">${cr} Action</span>`;
+    let iHTML = '';
+    cat.items.forEach(item => {
+      const r = insp.results[item.id] || { status:'green', subs:[], note:'', mat:'' };
+      const sc = r.status === 'green' ? 'g' : r.status === 'yellow' ? 'y' : 'r';
+      const sl = r.status === 'green' ? 'Good' : r.status === 'yellow' ? 'Monitor' : 'Action';
+      const subs = (r.subs || []).map(k => { const [t,i] = k.split('-'); return t === 'm' ? item.mon[parseInt(i)] : item.act[parseInt(i)]; }).filter(Boolean);
+      const pr = PRICES[item.id] || [0,0,0,0];
+      let pHTML = '', pLbl = '';
+      if (r.status === 'green') {
+        pHTML = `<div class="ritem-price gp">&#10003; Good</div>`;
+      } else {
+        const lo = r.status === 'yellow' ? pr[0] : pr[2];
+        const hi = r.status === 'yellow' ? pr[1] : pr[3];
+        pHTML = `<div class="ritem-price">$${lo.toLocaleString()} &ndash; $${hi.toLocaleString()}</div>`;
+        pLbl = `<div class="ritem-plbl">${PLBLS[item.id] || ''}</div>`;
+        totLo += lo;
+        totHi += hi;
+      }
+      const subsH = subs.length ? `<div class="ritem-subs">${subs.map(s => '&bull; ' + s).join(' &nbsp;')}</div>` : '';
+      const noteH = r.note ? `<div class="ritem-note">${r.note}</div>` : '';
+      const matH = r.mat ? `<div class="ritem-mats">Materials needed: ${r.mat}</div>` : '';
+      iHTML += `<div class="ritem"><div class="ribadge ${sc}">${sl}</div><div><div class="ritem-name">${item.name}</div>${subsH}${noteH}${matH}</div><div>${pHTML}${pLbl}</div></div>`;
+    });
+    catHTML += `<div class="rcat"><div class="rcat-hdr"><div class="rcat-name">${cat.name}</div><div class="rcat-pills">${pills}</div></div><div class="rcat-items">${iHTML}</div></div>`;
+  });
+
+  const p = insp.profile;
+  const profChips = [];
+  if (p.filter) profChips.push(`<div class="pchip2"><span class="pchip2-k">Filter:</span>${p.filter}</div>`);
+  if (p.caulk) profChips.push(`<div class="pchip2"><span class="pchip2-k">Caulk:</span>${p.caulk}</div>`);
+  if (p.paint) profChips.push(`<div class="pchip2"><span class="pchip2-k">Paint:</span>${p.paint}</div>`);
+  if (p.built) profChips.push(`<div class="pchip2"><span class="pchip2-k">Built:</span>${p.built}</div>`);
+  const profHTML = profChips.length ? `<div><div class="prof-title">Property Profile</div>${profChips.join('')}</div>` : '';
+
+  const clientLine = insp.client ? `<div style="font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 3px;">${insp.client}</div>` : '';
+  const hasIssues = cnt.yellow > 0 || cnt.red > 0;
+  const totalBar = hasIssues ? `<div class="total-bar"><div class="total-bar-left"><div class="tbl-title">TOTAL RECOMMENDED REPAIRS</div><div class="tbl-sub">Monitor + Action items &middot; Materials not included</div></div><div class="total-bar-amt">$${totLo.toLocaleString()} &ndash; $${totHi.toLocaleString()}</div></div>` : '';
+
+  const emailConfirm = `<div class="email-confirm"><span class="email-confirm-label">Send report to:</span><input type="email" class="email-confirm-input" id="emailConfirm" placeholder="client@example.com" value="${insp.email || ''}"></div>`;
+
+  document.getElementById('rptPg').innerHTML = `
+    ${emailConfirm}
+    <div class="rpt-hdr">
+      <div class="rpt-hdr-top"><div><div class="rpt-co">HILLIER <span>CONSTRUCTION</span></div><div class="rpt-ccb">CCB# 219946 &middot; Home Watch Program</div></div><div class="spills"><div class="spill spill-g"><span class="sn">${cnt.green}</span><span class="sl">Good</span></div><div class="spill spill-y"><span class="sn">${cnt.yellow}</span><span class="sl">Monitor</span></div><div class="spill spill-r"><span class="sn">${cnt.red}</span><span class="sl">Action</span></div></div></div>
+      <div class="rpt-hdr-bot"><div><div class="rpt-kicker">Property Inspected</div><div class="rpt-addr">${insp.addr}</div>${clientLine}<div class="rpt-meta">${insp.date} &middot; Tech: ${insp.tech}</div></div>${profHTML}</div>
+    </div>
+    <div class="sum-strip"><div class="sum-card g"><span class="sum-n">${cnt.green}</span><span class="sum-lbl">Good</span><span class="sum-sub">No action needed</span></div><div class="sum-card y"><span class="sum-n">${cnt.yellow}</span><span class="sum-lbl">Monitor</span><span class="sum-sub">Address at next visit</span></div><div class="sum-card r"><span class="sum-n">${cnt.red}</span><span class="sum-lbl">Action Needed</span><span class="sum-sub">Recommend addressing soon</span></div></div>
+    ${totalBar}${catHTML}
+    <div class="rpt-footer"><div><div class="rf-title">Complimentary Repair Hour Included</div><div class="rf-sub">Labor included &middot; Materials billed at cost &middot; Additional work quoted separately</div></div><div class="rf-right">Hillier Construction LLC &middot; (503) 854-5921<br>CCB# 219946 &middot; hillierconstruction.com</div></div>`;
+  show('screen-report');
+}
+
+function newInsp() {
+  ['fTech','fAddr','fClient','fEmail','fFilter','fBuilt','fPaint','fCaulk','fNotes'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('btnStart').disabled = true;
+  resetToolkit();
+  show('screen-start');
+}
+
+// Initialize on load
+buildToolkit();
+</script>
+
+</body>
+</html>
