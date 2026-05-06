@@ -894,3 +894,114 @@ section {
     height: 48px;
   }
 }
+
+/* ---------- ESTIMATOR ---------- */
+.estimator-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 700px) {
+  .estimator-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.estimator-option {
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 16px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: 'Barlow', sans-serif;
+}
+
+.estimator-option:hover {
+  border-color: var(--orange);
+  background: var(--orange-light);
+}
+
+.estimator-option.selected {
+  border-color: var(--orange);
+  background: var(--orange-light);
+  box-shadow: 0 0 0 3px rgba(232, 100, 10, 0.15);
+}
+
+.opt-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+
+.opt-sub {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.estimate-display {
+  background: var(--black);
+  color: white;
+  border-radius: var(--radius-lg);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.estimate-inner {
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.estimate-amount {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(40px, 7vw, 64px);
+  font-weight: 800;
+  color: var(--orange);
+  line-height: 1;
+  margin: 16px 0;
+}
+
+.estimate-note {
+  color: rgba(255,255,255,0.65);
+  font-size: 14px;
+  max-width: 50ch;
+  margin: 0 auto 24px;
+}
+
+.estimate-breakdown {
+  background: rgba(255,255,255,0.04);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  text-align: left;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.bk-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-size: 14px;
+}
+
+.bk-row:last-child {
+  border-bottom: none;
+}
+
+.bk-row span:first-child {
+  color: rgba(255,255,255,0.55);
+}
+
+.bk-row span:last-child {
+  color: white;
+  font-weight: 600;
+}
