@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Excavation — Hillier Construction | Salem Oregon Mini-Excavator Services</title>
-<meta name="description" content="Mini-excavator work in Salem Oregon. Half-day $500, full-day $1,000, haul-away $150/ton. Tight access, residential and small commercial. CCB# 219946.">
+<meta name="description" content="Mini-excavator work in Salem Oregon. Get an instant estimate range. Tight access, residential and small commercial. CCB# 219946.">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -34,46 +34,159 @@
   <div class="container">
     <span class="eyebrow">Excavation</span>
     <h1>Mini-excavator work. Tight access. Real estimates.</h1>
-    <p class="lead">Residential digs, drainage, footings, demo, and small site work. Half-day and full-day blocks priced upfront — no surprise hourly billing.</p>
+    <p class="lead">Residential digs, drainage, footings, demo, and small site work. Block pricing — no surprise hourly billing. Get a real range below in two minutes.</p>
     <div class="hero-actions" style="margin-top: 32px;">
-      <a href="estimate-excavation.html" class="btn btn-primary">Get an Instant Estimate</a>
+      <a href="#estimator" class="btn btn-primary">Get an Instant Estimate</a>
       <a href="tel:5038545921" class="btn btn-outline">Call (503) 854-5921</a>
     </div>
   </div>
 </section>
 
-<!-- ===== PRICING ===== -->
-<section>
-  <div class="container">
+<!-- ===== ESTIMATOR ===== -->
+<section id="estimator">
+  <div class="container-narrow">
+
     <div class="section-header">
-      <span class="eyebrow">Block Pricing</span>
-      <h2>Half day or full day. Hauling priced by the ton.</h2>
-      <p class="lead">No hourly meter. You know what the day costs before we show up.</p>
+      <span class="eyebrow">Excavation Estimator</span>
+      <h2>Get a real range in two minutes.</h2>
+      <p class="lead">Block pricing for residential and small commercial digs. Final number locked in after a free walk-through to confirm site access and conditions.</p>
     </div>
 
-    <div class="value-grid" style="grid-template-columns: 1fr 1fr 1fr; max-width: 1100px; margin: 0 auto;">
-      <div class="value-item" style="background: white; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 36px; text-align: center;">
-        <span class="value-number" style="display: block; margin-bottom: 16px;">Half Day</span>
-        <h2 style="font-size: 56px; color: var(--orange); margin-bottom: 8px; line-height: 1;">$500</h2>
-        <p style="color: var(--muted); font-size: 15px; margin-top: 8px;">Four hours on site. Operator and machine.</p>
-      </div>
-      <div class="value-item" style="background: white; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 36px; text-align: center;">
-        <span class="value-number" style="display: block; margin-bottom: 16px;">Full Day</span>
-        <h2 style="font-size: 56px; color: var(--orange); margin-bottom: 8px; line-height: 1;">$1,000</h2>
-        <p style="color: var(--muted); font-size: 15px; margin-top: 8px;">Eight hours on site. Operator and machine.</p>
-      </div>
-      <div class="value-item" style="background: white; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 36px; text-align: center;">
-        <span class="value-number" style="display: block; margin-bottom: 16px;">Haul-Away</span>
-        <h2 style="font-size: 56px; color: var(--orange); margin-bottom: 8px; line-height: 1;">$150<span style="font-size: 22px; color: var(--muted);">/ton</span></h2>
-        <p style="color: var(--muted); font-size: 15px; margin-top: 8px;">Dirt, debris, demo material. Disposed properly.</p>
+    <!-- STEP 1: Job size -->
+    <div class="form-card" style="margin-bottom: 24px;">
+      <span class="eyebrow">Step 1</span>
+      <h3 style="margin-bottom: 8px;">How big is the job?</h3>
+      <p style="color: var(--muted); margin-bottom: 24px;">Pick the block that fits your project. Don't worry if Byron finishes early — block pricing covers mobilization, fuel, and equipment delivery, not just hours on site.</p>
+
+      <div class="estimator-grid">
+        <button type="button" class="estimator-option" onclick="pickBlock('half', this)">
+          <span class="opt-label">Half Day</span>
+          <span class="opt-sub">Up to 4 hours on site</span>
+        </button>
+        <button type="button" class="estimator-option" onclick="pickBlock('full', this)">
+          <span class="opt-label">Full Day</span>
+          <span class="opt-sub">Up to 8 hours on site</span>
+        </button>
+        <button type="button" class="estimator-option" onclick="pickBlock('multi', this)">
+          <span class="opt-label">Multi-Day</span>
+          <span class="opt-sub">Larger residential or commercial</span>
+        </button>
       </div>
     </div>
 
-    <p class="text-center" style="margin-top: 32px; color: var(--muted); font-size: 15px;">Larger jobs (multi-day, commercial sites, complex grading) priced after a walk-through.</p>
+    <!-- STEP 2: Site conditions -->
+    <div class="form-card" style="margin-bottom: 24px;">
+      <span class="eyebrow">Step 2</span>
+      <h3 style="margin-bottom: 8px;">What are the site conditions?</h3>
+      <p style="color: var(--muted); margin-bottom: 24px;">Soil type and access affect how much actual digging gets done in a block. Be honest — better to flag complexity now than have a surprise on day one.</p>
+
+      <div class="estimator-grid">
+        <button type="button" class="estimator-option" onclick="pickConditions('easy', this)">
+          <span class="opt-label">Easy Access</span>
+          <span class="opt-sub">Open yard, soft to standard soil</span>
+        </button>
+        <button type="button" class="estimator-option" onclick="pickConditions('standard', this)">
+          <span class="opt-label">Standard</span>
+          <span class="opt-sub">Typical Oregon clay, normal access</span>
+        </button>
+        <button type="button" class="estimator-option" onclick="pickConditions('tight', this)">
+          <span class="opt-label">Tight or Rocky</span>
+          <span class="opt-sub">Backyard access, rock, or roots</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Haul-away -->
+    <div class="form-card" style="margin-bottom: 24px;">
+      <span class="eyebrow">Step 3</span>
+      <h3 style="margin-bottom: 8px;">Need haul-away?</h3>
+      <p style="color: var(--muted); margin-bottom: 24px;">Dirt, debris, demo material, stumps. We handle disposal at $150 per ton. If you don't need haul-away, skip this step.</p>
+
+      <div class="estimator-grid" style="grid-template-columns: 1fr 1fr;">
+        <button type="button" class="estimator-option" onclick="pickHaul('none', this)">
+          <span class="opt-label">No Haul-Away</span>
+          <span class="opt-sub">Material stays on site</span>
+        </button>
+        <button type="button" class="estimator-option" onclick="pickHaul('yes', this)">
+          <span class="opt-label">Yes, Haul It</span>
+          <span class="opt-sub">Estimate tons below</span>
+        </button>
+      </div>
+
+      <div id="tonsBox" style="display: none; margin-top: 20px;">
+        <div class="form-group">
+          <label class="form-label" for="tons">Estimated tons (rough guess)</label>
+          <input type="number" id="tons" class="form-input" placeholder="e.g. 4" min="1" max="100" oninput="updateEstimate()">
+          <p style="color: var(--muted); font-size: 13px; margin-top: 8px;">Rough guide: a small pickup truck bed full ≈ 1 ton. A standard dump trailer ≈ 5–8 tons. Don't worry about being exact — Byron will confirm at the walk-through.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ESTIMATE DISPLAY -->
+    <div id="estimateBox" class="estimate-display" style="display: none;">
+      <div class="estimate-inner">
+        <span class="eyebrow" style="color: var(--orange);">Your Estimate Range</span>
+        <div class="estimate-amount" id="estimateAmount">$0 – $0</div>
+        <p class="estimate-note">Range covers easy through complex site conditions. Final number locked in after a free walk-through.</p>
+
+        <div class="estimate-breakdown">
+          <div class="bk-row"><span>Job size</span><span id="bkBlock">—</span></div>
+          <div class="bk-row"><span>Site conditions</span><span id="bkConditions">—</span></div>
+          <div class="bk-row"><span>Haul-away</span><span id="bkHaul">—</span></div>
+          <div class="bk-row"><span>Operator and machine</span><span style="color: var(--orange);">Included</span></div>
+          <div class="bk-row"><span>Mobilization and fuel</span><span style="color: var(--orange);">Included</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEAD CAPTURE -->
+    <div id="leadBox" class="form-card" style="display: none;">
+      <span class="eyebrow">Lock It In</span>
+      <h3 style="margin-bottom: 8px;">Want to schedule a walk-through?</h3>
+      <p style="color: var(--muted); margin-bottom: 24px;">Send us your info and we'll set up a free site visit to confirm the number and answer questions. No pressure, no obligation.</p>
+
+      <form action="https://formspree.io/f/xaqagqqp" method="POST">
+        <input type="hidden" name="trade" value="Excavation Estimate">
+        <input type="hidden" name="estimate_range" id="hiddenRange">
+        <input type="hidden" name="job_size" id="hiddenBlock">
+        <input type="hidden" name="site_conditions" id="hiddenConditions">
+        <input type="hidden" name="haul_away" id="hiddenHaul">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="name">Name</label>
+            <input type="text" id="name" name="name" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" class="form-input" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email</label>
+          <input type="email" id="email" name="email" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="address">Property address</label>
+          <input type="text" id="address" name="address" class="form-input" placeholder="Street and city" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="notes">Anything else? <span style="color: var(--muted); font-weight: 400; text-transform: none; letter-spacing: 0;">(optional)</span></label>
+          <textarea id="notes" name="notes" class="form-textarea" placeholder="Project description, timeline, photos can follow by email..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary form-submit">Schedule My Walk-Through</button>
+        <p style="color: var(--muted); font-size: 13px; margin-top: 16px; text-align: center;">We respond within one business day. Free walk-through, no obligation.</p>
+      </form>
+    </div>
+
   </div>
 </section>
 
-<!-- ===== WHAT WE DIG ===== -->
+<!-- ===== EQUIPMENT ===== -->
 <section class="section-stone">
   <div class="container">
     <div class="case-study">
@@ -107,7 +220,7 @@
   </div>
 </section>
 
-<!-- ===== WHAT WE DO ===== -->
+<!-- ===== COMMON JOBS ===== -->
 <section class="section-dark">
   <div class="container">
     <div class="section-header">
@@ -131,18 +244,6 @@
         <h3 style="color: white;">Demo and stumps</h3>
         <p style="color: rgba(255,255,255,0.65);">Old shed demo, concrete pad removal, stump grinding. Haul-away available — we leave the site clean.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== CTA STRIP ===== -->
-<section class="cta-strip">
-  <div class="container-narrow">
-    <h2>Need a price on a dig?</h2>
-    <p>Punch in your job in the estimator and you'll have a number in under two minutes. Or call and we'll talk it through.</p>
-    <div class="hero-actions" style="justify-content: center;">
-      <a href="estimate-excavation.html" class="btn btn-dark">Get an Instant Estimate</a>
-      <a href="tel:5038545921" class="btn btn-dark">Call (503) 854-5921</a>
     </div>
   </div>
 </section>
@@ -186,6 +287,99 @@
     </div>
   </div>
 </footer>
+
+<script>
+const state = { block: null, conditions: null, haul: null, tons: 0 };
+
+const BLOCK_BASE = {
+  half:  { low: 500,  high: 750 },
+  full:  { low: 1000, high: 1500 },
+  multi: { low: 2500, high: 6000 }
+};
+
+const BLOCK_LABELS = {
+  half:  'Half day (up to 4 hrs)',
+  full:  'Full day (up to 8 hrs)',
+  multi: 'Multi-day project'
+};
+
+const CONDITION_MULT = {
+  easy:     { low: 0.95, high: 1.05 },
+  standard: { low: 1.00, high: 1.20 },
+  tight:    { low: 1.15, high: 1.40 }
+};
+
+const CONDITION_LABELS = {
+  easy:     'Easy access, soft soil',
+  standard: 'Standard Oregon clay',
+  tight:    'Tight access or rocky'
+};
+
+const HAUL_RATE = 150;
+
+function pickBlock(b, btn) {
+  state.block = b;
+  btn.parentElement.querySelectorAll('.estimator-option').forEach(x => x.classList.remove('selected'));
+  btn.classList.add('selected');
+  updateEstimate();
+}
+
+function pickConditions(c, btn) {
+  state.conditions = c;
+  btn.parentElement.querySelectorAll('.estimator-option').forEach(x => x.classList.remove('selected'));
+  btn.classList.add('selected');
+  updateEstimate();
+}
+
+function pickHaul(h, btn) {
+  state.haul = h;
+  btn.parentElement.querySelectorAll('.estimator-option').forEach(x => x.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('tonsBox').style.display = (h === 'yes') ? 'block' : 'none';
+  if (h === 'none') state.tons = 0;
+  updateEstimate();
+}
+
+function updateEstimate() {
+  const tonsInput = document.getElementById('tons');
+  state.tons = (state.haul === 'yes' && tonsInput.value) ? parseFloat(tonsInput.value) : 0;
+
+  if (!state.block || !state.conditions || !state.haul) {
+    document.getElementById('estimateBox').style.display = 'none';
+    document.getElementById('leadBox').style.display = 'none';
+    return;
+  }
+
+  if (state.haul === 'yes' && (!state.tons || state.tons < 1)) {
+    document.getElementById('estimateBox').style.display = 'none';
+    document.getElementById('leadBox').style.display = 'none';
+    return;
+  }
+
+  const base = BLOCK_BASE[state.block];
+  const mult = CONDITION_MULT[state.conditions];
+  const haulCost = state.tons * HAUL_RATE;
+
+  const low  = Math.round((base.low  * mult.low  + haulCost) / 50) * 50;
+  const high = Math.round((base.high * mult.high + haulCost) / 50) * 50;
+
+  document.getElementById('estimateAmount').textContent =
+    '$' + low.toLocaleString() + ' – $' + high.toLocaleString();
+
+  document.getElementById('bkBlock').textContent = BLOCK_LABELS[state.block];
+  document.getElementById('bkConditions').textContent = CONDITION_LABELS[state.conditions];
+  document.getElementById('bkHaul').textContent =
+    state.haul === 'yes' ? state.tons + ' tons (~$' + haulCost.toLocaleString() + ')' : 'None';
+
+  document.getElementById('hiddenRange').value = '$' + low.toLocaleString() + ' – $' + high.toLocaleString();
+  document.getElementById('hiddenBlock').value = BLOCK_LABELS[state.block];
+  document.getElementById('hiddenConditions').value = CONDITION_LABELS[state.conditions];
+  document.getElementById('hiddenHaul').value = state.haul === 'yes' ? state.tons + ' tons' : 'None';
+
+  document.getElementById('estimateBox').style.display = 'block';
+  document.getElementById('leadBox').style.display = 'block';
+}
+</script>
 
 </body>
 </html>

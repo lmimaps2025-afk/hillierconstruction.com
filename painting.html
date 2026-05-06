@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Painting — Hillier Construction | Salem Oregon Painting Contractor</title>
-<meta name="description" content="Exterior and interior painting in Salem Oregon. $5/sq ft exterior, $4/sq ft interior. Spot priming and trim included. Licensed CCB# 219946. Get an instant estimate.">
+<meta name="description" content="Exterior and interior painting in Salem Oregon. Get an instant estimate range. Spot priming and trim included. Licensed CCB# 219946.">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -34,37 +34,141 @@
   <div class="container">
     <span class="eyebrow">Painting</span>
     <h1>Exterior and interior. Residential and commercial.</h1>
-    <p class="lead">Spot priming, trim work, and garage doors are included — not upcharged. Pricing is online so you know the number before you call.</p>
+    <p class="lead">Spot priming, trim work, and garage doors are included — not upcharged. Get a real range below in two minutes.</p>
     <div class="hero-actions" style="margin-top: 32px;">
-      <a href="estimate-painting.html" class="btn btn-primary">Get an Instant Estimate</a>
+      <a href="#estimator" class="btn btn-primary">Get an Instant Estimate</a>
       <a href="tel:5038545921" class="btn btn-outline">Call (503) 854-5921</a>
     </div>
   </div>
 </section>
 
-<!-- ===== PRICING ===== -->
-<section>
-  <div class="container">
+<!-- ===== ESTIMATOR ===== -->
+<section id="estimator">
+  <div class="container-narrow">
+
     <div class="section-header">
-      <span class="eyebrow">Straight Pricing</span>
-      <h2>Per square foot. No surprises.</h2>
-      <p class="lead">Every quote is built off these two numbers. The estimator does the math for you.</p>
+      <span class="eyebrow">Painting Estimator</span>
+      <h2>Get a real range in two minutes.</h2>
+      <p class="lead">Real-world price range based on your home's size, scope, and condition. Final number locked in after a free walk-through.</p>
     </div>
 
-    <div class="value-grid" style="grid-template-columns: 1fr 1fr; max-width: 800px; margin: 0 auto;">
-      <div class="value-item" style="background: white; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 36px; text-align: center;">
-        <span class="value-number" style="display: block; margin-bottom: 16px;">Exterior</span>
-        <h2 style="font-size: 64px; color: var(--orange); margin-bottom: 8px; line-height: 1;">$5<span style="font-size: 24px; color: var(--muted);">/sq ft</span></h2>
-        <p style="color: var(--muted); font-size: 15px;">Living square footage. Includes prep, spot priming, two coats, and garage doors.</p>
-      </div>
-      <div class="value-item" style="background: white; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 36px; text-align: center;">
-        <span class="value-number" style="display: block; margin-bottom: 16px;">Interior</span>
-        <h2 style="font-size: 64px; color: var(--orange); margin-bottom: 8px; line-height: 1;">$4<span style="font-size: 24px; color: var(--muted);">/sq ft</span></h2>
-        <p style="color: var(--muted); font-size: 15px;">Living square footage. Walls, ceilings, trim, and doors rolled into one number.</p>
+    <!-- STEP 1: Type -->
+    <div class="form-card" style="margin-bottom: 24px;">
+      <span class="eyebrow">Step 1</span>
+      <h3 style="margin-bottom: 8px;">What are we painting?</h3>
+      <p style="color: var(--muted); margin-bottom: 24px;">Pick one. Both means full house exterior plus interior.</p>
+
+      <div class="estimator-grid">
+        <button type="button" class="estimator-option" onclick="pickType('exterior', this)">
+          <span class="opt-label">Exterior</span>
+          <span class="opt-sub">Full house exterior repaint</span>
+        </button>
+        <button type="button" class="estimator-option" onclick="pickType('interior', this)">
+          <span class="opt-label">Interior</span>
+          <span class="opt-sub">Walls, ceilings, trim, doors</span>
+        </button>
+        <button type="button" class="estimator-option" onclick="pickType('both', this)">
+          <span class="opt-label">Both</span>
+          <span class="opt-sub">Exterior + interior package</span>
+        </button>
       </div>
     </div>
 
-    <p class="text-center" style="margin-top: 32px; color: var(--muted); font-size: 15px;">Commercial and unusual scopes (lift work, masonry, repaints over failure) priced separately after a walk-through.</p>
+    <!-- STEP 2: Size -->
+    <div class="form-card" style="margin-bottom: 24px;">
+      <span class="eyebrow">Step 2</span>
+      <h3 style="margin-bottom: 8px;">How big is the home?</h3>
+      <p style="color: var(--muted); margin-bottom: 24px;">Living square footage. If you're not sure, check your property tax record or rough-estimate from floor plans.</p>
+
+      <div class="form-group">
+        <label class="form-label" for="sqft">Living square footage</label>
+        <input type="number" id="sqft" class="form-input" placeholder="e.g. 1850" min="500" max="20000" oninput="updateEstimate()">
+      </div>
+    </div>
+
+    <!-- STEP 3: Condition -->
+    <div class="form-card" style="margin-bottom: 24px;">
+      <span class="eyebrow">Step 3</span>
+      <h3 style="margin-bottom: 8px;">What's the surface condition?</h3>
+      <p style="color: var(--muted); margin-bottom: 24px;">Be honest — better to flag prep work now than have a surprise on day one. The walk-through confirms the final number.</p>
+
+      <div class="estimator-grid">
+        <button type="button" class="estimator-option" onclick="pickCondition('good', this)">
+          <span class="opt-label">Good Condition</span>
+          <span class="opt-sub">Recent paint, minor touch-ups only</span>
+        </button>
+        <button type="button" class="estimator-option" onclick="pickCondition('fair', this)">
+          <span class="opt-label">Fair Condition</span>
+          <span class="opt-sub">Standard prep — caulk, sand, spot prime</span>
+        </button>
+        <button type="button" class="estimator-option" onclick="pickCondition('heavy', this)">
+          <span class="opt-label">Heavy Prep Needed</span>
+          <span class="opt-sub">Peeling paint, weather damage, full prep</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ESTIMATE DISPLAY -->
+    <div id="estimateBox" class="estimate-display" style="display: none;">
+      <div class="estimate-inner">
+        <span class="eyebrow" style="color: var(--orange);">Your Estimate Range</span>
+        <div class="estimate-amount" id="estimateAmount">$0 – $0</div>
+        <p class="estimate-note">Range covers standard prep through heavy prep work. Final number locked in after a free walk-through.</p>
+
+        <div class="estimate-breakdown">
+          <div class="bk-row"><span>Project type</span><span id="bkType">—</span></div>
+          <div class="bk-row"><span>Square footage</span><span id="bkSize">—</span></div>
+          <div class="bk-row"><span>Surface condition</span><span id="bkCondition">—</span></div>
+          <div class="bk-row"><span>Two finish coats</span><span style="color: var(--orange);">Included</span></div>
+          <div class="bk-row"><span>Trim, doors, garage</span><span style="color: var(--orange);">Included</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEAD CAPTURE -->
+    <div id="leadBox" class="form-card" style="display: none;">
+      <span class="eyebrow">Lock It In</span>
+      <h3 style="margin-bottom: 8px;">Want to schedule a walk-through?</h3>
+      <p style="color: var(--muted); margin-bottom: 24px;">Send us your info and we'll set up a free site visit to confirm the number and answer questions. No pressure, no obligation.</p>
+
+      <form action="https://formspree.io/f/xaqagqqp" method="POST">
+        <input type="hidden" name="trade" value="Painting Estimate">
+        <input type="hidden" name="estimate_range" id="hiddenRange">
+        <input type="hidden" name="project_type" id="hiddenType">
+        <input type="hidden" name="square_footage" id="hiddenSize">
+        <input type="hidden" name="surface_condition" id="hiddenCondition">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="name">Name</label>
+            <input type="text" id="name" name="name" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" class="form-input" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email</label>
+          <input type="email" id="email" name="email" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="address">Property address</label>
+          <input type="text" id="address" name="address" class="form-input" placeholder="Street and city" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="notes">Anything else? <span style="color: var(--muted); font-weight: 400; text-transform: none; letter-spacing: 0;">(optional)</span></label>
+          <textarea id="notes" name="notes" class="form-textarea" placeholder="Color preferences, timeline, special requests..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary form-submit">Schedule My Walk-Through</button>
+        <p style="color: var(--muted); font-size: 13px; margin-top: 16px; text-align: center;">We respond within one business day. Free walk-through, no obligation.</p>
+      </form>
+    </div>
+
   </div>
 </section>
 
@@ -176,18 +280,6 @@
   </div>
 </section>
 
-<!-- ===== CTA STRIP ===== -->
-<section class="cta-strip">
-  <div class="container-narrow">
-    <h2>Get a number in two minutes.</h2>
-    <p>The estimator does the math. Punch in your square footage and pick exterior or interior — you'll have a price before you call.</p>
-    <div class="hero-actions" style="justify-content: center;">
-      <a href="estimate-painting.html" class="btn btn-dark">Get an Instant Estimate</a>
-      <a href="tel:5038545921" class="btn btn-dark">Call (503) 854-5921</a>
-    </div>
-  </div>
-</section>
-
 <!-- ===== FOOTER ===== -->
 <footer class="site-footer">
   <div class="container">
@@ -227,6 +319,80 @@
     </div>
   </div>
 </footer>
+
+<script>
+const state = { type: null, sqft: null, condition: null };
+
+const RATES = {
+  exterior: 5,
+  interior: 4,
+  both: 9
+};
+
+const TYPE_LABELS = {
+  exterior: 'Exterior',
+  interior: 'Interior',
+  both: 'Exterior + Interior'
+};
+
+const CONDITION_MULT = {
+  good: { low: 0.85, high: 1.05 },
+  fair: { low: 1.00, high: 1.20 },
+  heavy: { low: 1.15, high: 1.40 }
+};
+
+const CONDITION_LABELS = {
+  good: 'Good — minor touch-up',
+  fair: 'Fair — standard prep',
+  heavy: 'Heavy prep needed'
+};
+
+function pickType(t, btn) {
+  state.type = t;
+  btn.parentElement.querySelectorAll('.estimator-option').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  updateEstimate();
+}
+
+function pickCondition(c, btn) {
+  state.condition = c;
+  btn.parentElement.querySelectorAll('.estimator-option').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  updateEstimate();
+}
+
+function updateEstimate() {
+  const sqft = parseFloat(document.getElementById('sqft').value);
+  state.sqft = sqft;
+
+  if (!state.type || !state.sqft || state.sqft < 500 || !state.condition) {
+    document.getElementById('estimateBox').style.display = 'none';
+    document.getElementById('leadBox').style.display = 'none';
+    return;
+  }
+
+  const rate = RATES[state.type];
+  const mult = CONDITION_MULT[state.condition];
+  const base = sqft * rate;
+  const low = Math.round(base * mult.low / 50) * 50;
+  const high = Math.round(base * mult.high / 50) * 50;
+
+  document.getElementById('estimateAmount').textContent =
+    '$' + low.toLocaleString() + ' – $' + high.toLocaleString();
+
+  document.getElementById('bkType').textContent = TYPE_LABELS[state.type];
+  document.getElementById('bkSize').textContent = sqft.toLocaleString() + ' sq ft';
+  document.getElementById('bkCondition').textContent = CONDITION_LABELS[state.condition];
+
+  document.getElementById('hiddenRange').value = '$' + low.toLocaleString() + ' – $' + high.toLocaleString();
+  document.getElementById('hiddenType').value = TYPE_LABELS[state.type];
+  document.getElementById('hiddenSize').value = sqft + ' sq ft';
+  document.getElementById('hiddenCondition').value = CONDITION_LABELS[state.condition];
+
+  document.getElementById('estimateBox').style.display = 'block';
+  document.getElementById('leadBox').style.display = 'block';
+}
+</script>
 
 </body>
 </html>
