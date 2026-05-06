@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Hillier Construction | Salem Oregon</title>
+<meta name="description" content="Get a free estimate from Hillier Construction. Salem Oregon licensed general contractor. Call (503) 854-5921 or send a project request online. CCB# 219946.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <nav class="nav">
+    <a href="index.html" class="nav-logo"><img src="images/LogoHillier.png" alt="Hillier Construction" class="nav-logo-img"></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="painting.html">Painting</a></li>
+      <li><a href="excavation.html">Excavation</a></li>
+      <li><a href="gc.html">General Contracting</a></li>
+      <li><a href="home-watch.html">Home Watch</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <a href="tel:5038545921" class="nav-phone">(503) 854-5921</a>
+    <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<!-- ===== PAGE HEADER ===== -->
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Contact</span>
+    <h1>Tell us about the job.</h1>
+    <p class="lead">We respond fast. If it's a quick question, calling is fastest. If it's a project, the form below gets the right info to us up front so we can show up ready.</p>
+  </div>
+</section>
+
+<!-- ===== CONTACT GRID ===== -->
+<section>
+  <div class="container">
+    <div class="case-study">
+
+      <!-- LEFT: CONTACT INFO -->
+      <div class="case-study-body">
+        <span class="eyebrow">Reach Us</span>
+        <h2 style="margin-bottom: 32px;">Three ways in.</h2>
+
+        <div style="margin-bottom: 28px;">
+          <span class="case-study-meta-label">Phone</span>
+          <a href="tel:5038545921" style="font-size: 24px; font-weight: 700; color: var(--orange); display: block; margin-top: 4px;">(503) 854-5921</a>
+          <p style="color: var(--muted); font-size: 14px; margin-top: 4px;">Calls answered during business hours. Voicemail returned same day.</p>
+        </div>
+
+        <div style="margin-bottom: 28px;">
+          <span class="case-study-meta-label">Email</span>
+          <a href="mailto:byron1hillier@gmail.com" style="font-size: 18px; font-weight: 600; color: var(--text); display: block; margin-top: 4px;">byron1hillier@gmail.com</a>
+          <p style="color: var(--muted); font-size: 14px; margin-top: 4px;">Best for project descriptions, photos, and documents.</p>
+        </div>
+
+        <div style="margin-bottom: 28px;">
+          <span class="case-study-meta-label">Service Area</span>
+          <p style="font-size: 18px; font-weight: 600; color: var(--text); margin-top: 4px;">Salem, Oregon and surrounding areas</p>
+          <p style="color: var(--muted); font-size: 14px; margin-top: 4px;">Travel beyond Salem available for larger commercial work.</p>
+        </div>
+
+        <div style="margin-bottom: 28px;">
+          <span class="case-study-meta-label">License</span>
+          <p style="font-size: 18px; font-weight: 600; color: var(--text); margin-top: 4px;">CCB# 219946</p>
+          <p style="color: var(--muted); font-size: 14px; margin-top: 4px;">Licensed, bonded, and insured. Liability and workers' comp on file.</p>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: FORM -->
+      <div>
+        <div class="form-card">
+          <span class="eyebrow">Project Request</span>
+          <h2 style="font-size: 32px; margin-bottom: 24px;">Get a free estimate.</h2>
+
+          <form action="https://formspree.io/f/xaqagqqp" method="POST">
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="name">Name</label>
+                <input type="text" id="name" name="name" class="form-input" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" class="form-input" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="email">Email</label>
+              <input type="email" id="email" name="email" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="address">Project Address</label>
+              <input type="text" id="address" name="address" class="form-input" placeholder="Street and city">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="service">Type of Work</label>
+              <select id="service" name="service" class="form-select" required>
+                <option value="">Choose one...</option>
+                <option value="Painting — Exterior">Painting — Exterior</option>
+                <option value="Painting — Interior">Painting — Interior</option>
+                <option value="Excavation">Excavation</option>
+                <option value="Foundation Repair">Foundation Repair</option>
+                <option value="Deck or Addition">Deck or Addition</option>
+                <option value="Commercial Buildout">Commercial Buildout</option>
+                <option value="Home Watch Inspection">Home Watch Inspection</option>
+                <option value="Other / Not Sure">Other / Not Sure</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="timeline">Timeline</label>
+              <select id="timeline" name="timeline" class="form-select">
+                <option value="">Choose one...</option>
+                <option value="ASAP">ASAP</option>
+                <option value="Within 30 days">Within 30 days</option>
+                <option value="1–3 months">1–3 months</option>
+                <option value="Just exploring">Just exploring</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="message">Project Details</label>
+              <textarea id="message" name="message" class="form-textarea" placeholder="Square footage, scope, photos can follow by email — whatever helps us show up ready."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary form-submit">Send Project Request</button>
+
+            <p style="color: var(--muted); font-size: 13px; margin-top: 16px; text-align: center;">We respond within one business day. Free estimates, no pressure.</p>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHAT HAPPENS NEXT ===== -->
+<section class="section-dark">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow" style="color: var(--orange);">What Happens Next</span>
+      <h2 style="color: white;">From inquiry to estimate.</h2>
+    </div>
+
+    <div class="value-grid">
+      <div class="value-item">
+        <span class="value-number">01</span>
+        <h3 style="color: white;">We reply within a day</h3>
+        <p style="color: rgba(255,255,255,0.65);">Usually faster. We'll either confirm we're a fit and book a walk-through, or tell you straight if we're not the right contractor for the job.</p>
+      </div>
+      <div class="value-item">
+        <span class="value-number">02</span>
+        <h3 style="color: white;">Walk-through on-site</h3>
+        <p style="color: rgba(255,255,255,0.65);">For most jobs, we come look at it. Brings the price closer to reality and gives us a chance to flag anything you might not have thought about.</p>
+      </div>
+      <div class="value-item">
+        <span class="value-number">03</span>
+        <h3 style="color: white;">Real number, in writing</h3>
+        <p style="color: rgba(255,255,255,0.65);">A written estimate with scope, timeline, and price. No vague hourly bids. No surprise change orders unless the scope actually changes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="images/LogoHillier.png" alt="Hillier Construction" class="footer-logo-img">
+        <p>Salem Oregon's licensed general contractor for foundation repair, painting, excavation, and commercial buildouts.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="painting.html">Painting</a></li>
+          <li><a href="excavation.html">Excavation</a></li>
+          <li><a href="gc.html">General Contracting</a></li>
+          <li><a href="home-watch.html">Home Watch</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:5038545921">(503) 854-5921</a></li>
+          <li><a href="mailto:byron1hillier@gmail.com">byron1hillier@gmail.com</a></li>
+          <li>Salem, Oregon</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Hillier Construction LLC. All rights reserved.</span>
+      <span class="ccb">CCB# 219946 · Licensed · Bonded · Insured</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
