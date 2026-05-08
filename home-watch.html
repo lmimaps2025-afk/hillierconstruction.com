@@ -164,6 +164,7 @@
   transition: border-color .2s;
   appearance: none;
   -webkit-appearance: none;
+  caret-color: white;
 }
 .form-input::placeholder,
 .form-textarea::placeholder {
@@ -173,6 +174,15 @@
 .form-select:focus,
 .form-textarea:focus {
   border-color: var(--orange);
+}
+.form-input:-webkit-autofill,
+.form-input:-webkit-autofill:hover,
+.form-input:-webkit-autofill:focus,
+.form-select:-webkit-autofill,
+.form-textarea:-webkit-autofill {
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(30,30,30,0.95) inset;
+  transition: background-color 5000s ease-in-out 0s;
 }
 .form-select {
   color: rgba(255,255,255,0.7);
